@@ -1,0 +1,47 @@
+<h5>Укажите иностранный язык</h5> <br />
+
+<div id="formGarden"> 
+	<% form_for(@anktolang) do |f| %>
+
+	<div class="instructions">
+		<%= f.error_messages %>
+	</div> 
+	
+	<fieldset id="spec_fields" class="repeat"> 
+		<legend>Язык</legend> 
+		<span class="oneField">
+			<div class="field-hint-inactive" id="anktolang[language_id]-H"><div>Выберите из списка Язык, которым Вы владеете</div></div>
+			<label for="anktolang[language_id]" class="preField">Язык</label>
+			<select name="anktolang[language_id]">
+          <% @lang.each do |lg| %>
+              <option value="<%= lg.id %>"
+                      <%= ' selected' if (lg.id == @anktolang.language_id) %>>
+                <%= lg.name %>
+              </option>
+          <% end %>
+        </select>
+			<span class="reqMark">*</span><br />
+		</span> <br />
+	   	<span class="oneField">
+			<div class="field-hint-inactive" id="anktolang[langlevel_id]-H"><div>Выберите из списка уровень, на которым Вы владеете иностранным языком</div></div>
+			<label for="anktolang[langlevel_id]" class="preField">Уровень</label>
+		     <select name="anktolang[langlevel_id]">
+          <% @langl.each do |ll| %>
+              <option value="<%= ll.id %>"
+                      <%= ' selected' if (ll.id == @anktolang.langlevel_id) %>>
+                <%= ll.name %>
+              </option>
+          <% end %>
+        </select>
+			<span class="reqMark">*</span><br />
+		</span>
+	  <br />
+		<%= f.hidden_field :promoank_id %>
+	  <div class="actions">
+	  	<%= f.submit "Указать",  :class=>"primaryAction" %>
+	  </div> 
+	 </fieldset>
+ 	<% end %>
+</div>
+
+<%= link_to "Назад", promomain_path_url (:page => 1) %>

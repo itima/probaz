@@ -1,0 +1,26 @@
+<h1>Станции метро</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Город</th>
+  </tr>
+
+<% @metros.each do |metro| %>
+  <tr>
+    <td><%= link_to metro.name, edit_metro_path(metro) %></td>
+    <%if metro.city != nil %>
+    <td><%=h metro.city.name %></td>
+    <%else%>
+    <td><%=h "Город не установлен!" %></td>
+    <%end%>
+    <td><%= link_to 'Удалить', metro, :confirm => 'Вы уверенны?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новое метро', new_metro_path %>
+<br />
+<%= link_to "назад",adminmain_path_url(:page => 4)  %>

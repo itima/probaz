@@ -1,0 +1,2 @@
+module PromomainHelper
+end

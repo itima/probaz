@@ -1,0 +1,64 @@
+
+/* header styling */
+h1 {color: #4d4d4d;
+	font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+	font-size: 48px;
+	font-weight: normal;}
+	
+h2 {
+	color: #ffffff;
+	font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	letter-spacing: 0.3em;
+	text-transform: uppercase;
+}
+
+h3 {
+	color: #6ec9cc;
+	border-bottom: 2px #d7d7d7 solid;
+	font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+	font-size: 24px;
+	font-weight: normal;
+}
+
+h4 {
+	color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: normal;
+	text-align: center;
+}
+
+h5 {
+	color: #6ec9cc;
+	font-family: "Myriad Pro", Helvetica, Arial, sans-serif;
+	font-size: 18px;
+	font-weight: normal;
+}
+	
+
+/* paragraph styling */
+p {
+	color: #525252;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+#content p {color: #151515; font-size: 14px; line-height: 1.3em;}
+
+#features p {color: #ffffff; font-size: 14px; line-height: 1.3em;}
+
+p#footer-text { text-align: center; }
+
+/* link styling */
+a { 
+	color: #999999; 
+	text-decoration: none; 
+}
+
+a:hover { text-decoration: underline; }
+
+#content a, #content1col a  {color: #246f99; text-decoration: underline;}
+#content a:hover, #content1col a:hover  {color: #246f99;text-decoration: none;}
+
+#features a { color:#ffffff; font-weight: bold;}

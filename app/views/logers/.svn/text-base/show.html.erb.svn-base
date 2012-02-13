@@ -1,0 +1,18 @@
+<p>
+  <b>Objid:</b>
+  <%=h @loger.objid %>
+</p>
+
+<p>
+  <b>Objtype:</b>
+  <%=h @loger.objtype %>
+</p>
+
+<p>
+  <b>Accin:</b>
+  <%=h @loger.accin %>
+</p>
+
+
+<%= link_to 'Edit', edit_loger_path(@loger) %> |
+<%= link_to 'Back', logers_path %>

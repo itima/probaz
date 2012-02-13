@@ -1,0 +1,15 @@
+<h1>Специализация</h1>
+
+<% form_for(@ankgroup) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label "Название" %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Сохранить' %>
+  </p>
+<% end %>
+
+<%= link_to 'Назад', ankgroups_path %>

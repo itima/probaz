@@ -1,0 +1,25 @@
+<h1>Метро</h1>
+
+<% form_for(@metro) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label "Название" %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label "Город" %><br />
+    <select name="metro[city_id]">
+          <% @cities.each do |spec| %>
+              <option value="<%= spec.id %>"<%= ' selected' if spec.id == 1 %>>
+                <%= spec.name %>
+              </option>
+          <% end %>
+        </select>
+  </p>
+  <p>
+    <%= f.submit 'Сохранить' %>
+  </p>
+<% end %>
+
+<%= link_to 'Назад', metros_path %>

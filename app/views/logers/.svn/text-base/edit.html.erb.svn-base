@@ -1,0 +1,24 @@
+<h1>Editing loger</h1>
+
+<% form_for(@loger) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :objid %><br />
+    <%= f.text_field :objid %>
+  </p>
+  <p>
+    <%= f.label :objtype %><br />
+    <%= f.text_field :objtype %>
+  </p>
+  <p>
+    <%= f.label :accin %><br />
+    <%= f.check_box :accin %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @loger %> |
+<%= link_to 'Back', logers_path %>

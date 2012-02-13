@@ -1,0 +1,40 @@
+<p>
+  <b>Название:</b>
+  <%=h @firm.name %>
+</p>
+<b>Телефон : </b><%= @firm.phone %><br />
+<b>Факс : </b><%= @firm.fax %><br />
+<b>Почтовый адрес (город) : </b><%= @firm.addrcity %><br />
+<b>Почтовый адрес (индекс) : </b><%= @firm.addrindex %><br />
+<b>Почтовый адрес (адрес) : </b><%= @firm.addrpost %><br />
+<b>Почтовый адрес (Грузополучателя) : </b><%= @firm.addrrecive %><br />
+<b>ИНН : </b><%= @firm.INN %><br />
+<b>КПП : </b><%= @firm.KPP %><br />
+<b>Полное наименование организации : </b><%= @firm.namefull %><br />
+<b>Представить (Контактное лицо) : </b><%= @firm.contact %><br />
+<b>Юридический адрес : </b><%= @firm.addrur %><br />
+<b>Счет : </b><%= @firm.acountnumber %><br />
+<b>БИК : </b><%= @firm.BIK %><br />
+<b>к/с : </b><%= @firm.ks %><br />
+<b>Наименование банка : </b><%= @firm.bankname %><br />
+<p>
+  <b>Email:</b>
+  <%=h @firm.email %>
+</p>
+<p>
+  <b>Сумма на счете (руб.):</b>
+  <%=h @firm.acount %>
+</p>
+<%if @firm.moderate == true%>
+<% form_tag('setpay') do %>
+<%= hidden_field_tag 'id',@firm.id %>
+  <%= text_field_tag 'pay' %>
+<%= submit_tag "пополнить"%>
+<%end%>
+<%else%>
+ <%= link_to 'Подтвердить', moderatefirm_path_url(:id => @firm.id) %><br />
+ <%= link_to 'Удалить', @firm, :confirm => 'Вы уверенны?', :method => :delete %><br />
+<%end%>
+
+<%= link_to 'Назад', adminmain_path_url(:page => 3) %>
+

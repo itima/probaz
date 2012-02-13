@@ -1,0 +1,598 @@
+<h5>Редактирование анкеты:  <%= @promoank.fio %></h5>
+
+<div class="instructions">
+	Заполните поля анкеты и нажмите кнопку сохранить. После этого модератор проверит правильность заполнения полей и Вашу анкету активируют для участия в отборах.
+</div>
+<% if @promoank.errors.size>0 %>
+
+  <div class="errors">
+    <ol>
+      <%  @promoank.errors.each_full do | msg| %>
+        <li><%= msg %><br /></li>
+      <% end  %>
+    </ol>
+  </div>
+<% end  %>
+
+<% form_for(@promoank) do |f| %>
+
+  <fieldset id="main_info" class="repeat">
+    <legend>Общие сведения</legend>
+
+    <span class="oneField">
+      <label for="<%= :login %>" class="preField">Ваш логин - <%= @promoank.email %></label>
+      <%= f.hidden_field :email %> <%= f.hidden_field :files %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :lname %>H">
+        <div>Введите Вашу Фамилию</div>
+      </div>
+      <label for="<%= :lname %>" class="preField">Фамилия</label>
+      <%= f.text_field :lname %>
+      <span class="reqMark">*</span><br />
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :fname %>H">
+        <div>Введите Ваше Имя	</div>
+      </div>
+      <label for="<%= :fname %>" class="preField">Имя</label>
+      <%= f.text_field :fname %>
+      <span class="reqMark">*</span><br />
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :nameto %>H">
+        <div>Введите Ваше Отчество</div>
+      </div>
+      <label for="<%= :nameto %>" class="preField">Отчество</label>
+      <%= f.text_field :nameto %>
+      <span class="reqMark">*</span><br />
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :birthday %>H">
+        <div>Введите дату Вашего рождения</div>
+      </div>
+      <label for="<%= :birthday %>" class="preField">Дата рождения</label>
+      <%= f.date_select :birthday, :start_year => 1950 %>
+
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :sex %>H">
+        <div>Укажите Ваш пол</div>
+      </div>
+      <label for="<%= :sex %>" class="preField">Пол</label>
+      <%if @promoank.sex == false%>
+        <%= f.radio_button :sex, true%> Мужской <%= f.radio_button :sex, false, :checked=> true %> Женский
+      <%else%>
+        <%= f.radio_button :sex, true, :checked=> true%> Мужской <%= f.radio_button :sex, false %> Женский
+      <%end%>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :mobilephone %>H">
+        <div>Укажите пожалуйста мобильный телефон для связи (+7(999)9999999)</div>
+      </div>
+      <label for="<%= :mobilephone %>" class="preField">Мобильный телефон</label>
+      <%= f.text_field :mobilephone %>
+
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :factphone %>H">
+        <div>Укажите пожалуйста домашний телефон для связи (+7(999)9999999)</div>
+      </div>
+      <label for="<%= :factphone %>" class="preField">Домашний телефон</label>
+      <%= f.text_field :factphone %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :pass %>H">
+        <div>Если хотите Вы можете изменить пароль</div>
+      </div>
+      <label for="<%= :pass %>" class="preField">Пароль</label>
+      <%= f.password_field :pass %>
+    </span><br />
+
+  </fieldset>
+
+  <br />
+  <fieldset id="person_info" class="repeat">
+    <legend>Личные сведения</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :growth %>H">
+        <div>Укажите Ваш рост в сантиметрах</div>
+      </div>
+      <label for="<%= :growth %>" class="preField">Рост</label>
+      <%= f.text_field :growth %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :weight %>H">
+        <div>Укажите Ваш вес в килограммах</div>
+      </div>
+      <label for="<%= :weight %>" class="preField">вес</label>
+      <%= f.text_field :weight %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :clothessize %>H">
+        <div>Укажите размер Вашей одежды</div>
+      </div>
+      <label for="<%= :clothessize %>" class="preField">Размер одежды</label>
+      <%= f.text_field :clothessize %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :bootssize %>H">
+        <div>Укажите размер Вашей обуви</div>
+      </div>
+      <label for="<%= :bootssize %>" class="preField">Размер обуви</label>
+      <%= f.text_field :bootssize %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[hairlength_id]_h">
+        <div>Укажите длину волос</div>
+      </div>
+      <label for="promoank[hairlength_id]" class="preField">Длина волос</label>
+      <select name="promoank[hairlength_id]">
+        <% Hairlength.find(:all).each do |hl| %>
+          <option value="<%= hl.id %>"
+                  <%= ' selected' if (hl.id == @promoank.hairlength_id) %>>
+                    <%= hl.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[haircolor_id]_h">
+        <div>Укажите цвет волос</div>
+      </div>
+      <label for="promoank[haircolor_id]" class="preField">Цвет волос</label>
+      <select name="promoank[haircolor_id]">
+        <% Haircolor.find(:all).each do |hc| %>
+          <option value="<%= hc.id %>"
+                  <%= ' selected' if (hc.id == @promoank.haircolor_id) %>>
+                    <%= hc.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :merried %>H">
+        <div>Укажите Ваше семейное положение</div>
+      </div>
+      <label for="<%= :merried %>" class="preField">Женат/замужем</label>
+      <%if @promoank.merried %>
+        <%= f.radio_button :merried, true, :checked=> true%> Да <%= f.radio_button :merried, false %> Нет
+      <%else%>
+        <%= f.radio_button :merried, true%> Да <%= f.radio_button :merried, false, :checked=> true %> Нет
+      <%end%>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :merried %>H">
+        <div>Если у Вас есть, какие-либо особенности внешности, которые Вы бы хотели указать. Укажите их здесь</div>
+      </div>
+      <label for="<%= :merried %>" class="preField">Особенности внешности</label>
+      <%= f.text_area :faces, :rows=>"4" %>
+    </span><br />
+
+  </fieldset>
+
+  <br />
+  <fieldset id="pass_info" class="repeat">
+    <legend>Паспортные данные</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passseries %>H">
+        <div>Укажите серию паспорта</div>
+      </div>
+      <label for="<%= :passseries %>" class="preField">Серия</label>
+      <%= f.text_field :passseries %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passnumber %>H">
+        <div>Укажите номер паспорта</div>
+      </div>
+      <label for="<%= :passnumber %>" class="preField">Номер</label>
+      <%= f.text_field :passnumber %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passdate %>H">
+        <div>Укажите дату выдачи паспорта</div>
+      </div>
+      <label for="<%= :passdate %>" class="preField">Дата выдачи</label>
+      <%= f.date_select :passdate,:start_year => 1960 %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passwho %>H">
+        <div>Укажите кем выдан паспорт</div>
+      </div>
+      <label for="<%= :passwho %>" class="preField">Кем выдан</label>
+      <%= f.text_field :passwho %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :citizenship %>H">
+        <div>Отметьте галочкой, если Вы явялетесь Гражданином РФ</div>
+      </div>
+      <label for="<%= :citizenship %>" class="preField">Гражданин РФ?</label>
+      <%= f.check_box :citizenship %> Да
+    </span><br />
+  </fieldset>
+
+  <br />
+  <fieldset id="passaddr_info" class="repeat">
+    <legend>Адрес прописки</legend>
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[passcity_id]H">
+        <div>Укажите город в котором Вы прописаны</div>
+      </div>
+      <label for="promoank[passcity_id]" class="preField">Город</label>
+      <select name="promoank[passcity_id]">
+        <% City.find(:all).each do |pc| %>
+          <option value="<%= pc.id %>"
+                  <%= ' selected' if (pc.id == @promoank.passcity_id) %>>
+                    <%= pc.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passindex %>H">
+        <div>Укажите индекс по которому Вы прописаны</div>
+      </div>
+      <label for="<%= :passindex %>" class="preField">Индекс</label>
+      <%= f.text_field :passindex %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passstreet %>H">
+        <div>Укажите кем выдан на которой Вы прописаны</div>
+      </div>
+      <label for="<%= :passstreet %>" class="preField">Улица</label>
+      <%= f.text_field :passstreet %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :passhouse %>H">
+        <div>Укажите дом, корпус, строение и квартиру в которой вы проживаете</div>
+      </div>
+      <label for="<%= :passhouse %>" class="preField">Дом</label>
+      <%= f.text_field :passhouse %>
+    </span><br />
+  </fieldset>
+
+  <br />
+  <fieldset id="factaddr_info" class="repeat">
+    <legend>Адрес проживания</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="eqH">
+        <div>Отметьте галочкой, если адрес прописки совпадает с адресом проживания</div>
+      </div>
+      <label for="eq" class="preField">Совпадает с пропиской?</label>
+      <%= f.check_box :citizenship %> Да
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[factcity_id]H">
+        <div>Укажите город в котором Вы проживаете</div>
+      </div>
+      <label for="promoank[factcity_id]" class="preField">Город</label>
+      <select name="promoank[factcity_id]">
+        <% City.find(:all).each do |fc| %>
+          <option value="<%= fc.id %>"
+                  <%= ' selected' if (fc.id == @promoank.factcity_id) %>>
+                    <%= fc.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[factmetro_id]H">
+        <div>Укажите ближайшее к Вам метро, если Вы живете в Москве</div>
+      </div>
+      <label for="promoank[factmetro_id]" class="preField">Город</label>
+      <select name="promoank[factmetro_id]">
+        <% Metro.find(:all).each do |mr| %>
+          <option value="<%= mr.id %>"
+                  <%= ' selected' if (mr.id == @promoank.factmetro_id) %>>
+                    <%= mr.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :factindex %>H">
+        <div>Укажите индекс по которому Вы проживаете</div>
+      </div>
+      <label for="<%= :factindex %>" class="preField">Индекс</label>
+      <%= f.text_field :factindex %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :factstreet %>H">
+        <div>Укажите кем выдан на которой Вы проживаете</div>
+      </div>
+      <label for="<%= :factstreet %>" class="preField">Улица</label>
+      <%= f.text_field :factstreet %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :facthouse %>H">
+        <div>Укажите дом, корпус, строение и квартиру в которой вы проживаете</div>
+      </div>
+      <label for="<%= :facthouse %>" class="preField">Дом</label>
+      <%= f.text_field :facthouse %>
+    </span><br />
+  </fieldset>
+
+  <br />
+
+  <fieldset id="education_info" class="repeat">
+    <legend>Образование</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[education_id]H">
+        <div>Укажите уровень Вашего образования</div>
+      </div>
+      <label for="promoank[education_id]" class="preField">Образование</label>
+      <select name="promoank[education_id]">
+        <% Education.find(:all).each do |ed| %>
+          <option value="<%= ed.id %>"
+                  <%= ' selected' if (ed.id == @promoank.education_id) %>>
+                    <%= ed.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[educationform_id]H">
+        <div>Укажите форму Вашего образования, если Вы еще проходите обучение</div>
+      </div>
+      <label for="promoank[educationform_id]" class="preField">Форма</label>
+      <select name="promoank[educationform_id]">
+        <% Educationform.find(:all).each do |edf| %>
+          <option value="<%= edf.id %>"
+                  <%= ' selected' if (edf.id == @promoank.educationform_id) %>>
+                    <%= edf.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :institute %>H">
+        <div>Укажите учебное заведение</div>
+      </div>
+      <label for="<%= :institute %>" class="preField">Учебное заведение</label>
+      <%= f.text_field :institute %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :educationspec %>H">
+        <div>Укажите вашу специальность</div>
+      </div>
+      <label for="<%= :educationspec %>" class="preField">Специальность</label>
+      <%= f.text_field :educationspec %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :educationstart %>H">
+        <div>Укажите дату поступления в учебное заведение</div>
+      </div>
+      <label for="<%= :educationstart %>" class="preField">Дата поступления</label>
+      <%= f.date_select :educationstart,:start_year => 1965 %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :educationstop %>H">
+        <div>Укажите дату окончания учебного заведения</div>
+      </div>
+      <label for="<%= :educationstop %>" class="preField">Дата окончания</label>
+      <%= f.date_select :educationstop,:start_year => 1965 %>
+    </span><br />
+
+  </fieldset>
+
+  <br />
+
+  <fieldset id="auto_info" class="repeat">
+    <legend>Транспорт</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :drivercard %>H">
+        <div>Укажите есть ли у Вас водительское удостоверение?</div>
+      </div>
+      <label for="<%= :drivercard %>" class="preField">Водительское Удостоверение</label>
+      <%if @promoank.drivercard %>
+        <%= f.radio_button :drivercard, true,:checked => true %> Есть <%= f.radio_button :drivercard, false %> Нет
+      <%else%>
+        <%= f.radio_button :drivercard, true %> Есть <%= f.radio_button :drivercard, false,:checked => true %> Нет
+      <%end%>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :hascar %>H">
+        <div>Укажите есть ли у Вас автомобиль?</div>
+      </div>
+      <label for="<%= :hascar %>" class="preField">Автомобиль</label>
+      <%if @promoank.hascar%>
+        <%= f.radio_button :hascar, true,:checked => true %> Есть <%= f.radio_button :hascar, false %> Нет
+      <%else%>
+        <%= f.radio_button :hascar, true %> Есть <%= f.radio_button :hascar, false,:checked => true %> Нет
+      <%end%>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :carmark %>H">
+        <div>Укажите марку автомобиля</div>
+      </div>
+      <label for="<%= :carmark %>" class="preField">Марка Автомобиля</label>
+      <%= f.text_field :carmark %>
+    </span><br />
+
+  </fieldset>
+  <br />
+  <fieldset id="med_info" class="repeat">
+    <legend>Медицинская книжка</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :hasmedbook %>H">
+        <div>Укажите есть ли у Вас медицинская книжка?</div>
+      </div>
+      <label for="<%= :hasmedbook %>" class="preField">Медицинская книжка</label>
+      <%if @promoank.hasmedbook%>
+        <%= f.radio_button :hasmedbook, true,:checked => true %> Есть <%= f.radio_button :hasmedbook, false %> Нет
+      <%else%>
+        <%= f.radio_button :hasmedbook, true%> Есть <%= f.radio_button :hasmedbook, false,:checked => true  %> Нет
+      <%end%>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :medbooknumber %>H">
+        <div>Укажите номер медицинской книжки</div>
+      </div>
+      <label for="<%= :medbooknumber %>" class="preField">Автомобиль</label>
+      <%= f.text_field :medbooknumber %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :medbookstop %>H">
+        <div>Укажите дату окончания медицинской книжки</div>
+      </div>
+      <label for="<%= :medbookstop %>" class="preField">Дата окончания</label>
+      <%= f.date_select :medbookstop %>
+    </span><br />
+
+  </fieldset>
+
+  <br />
+  <fieldset id="comp_info" class="repeat">
+    <legend>Компьютерные навыки</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[pclevel_id]H">
+        <div>Укажите уровень Ваших компьютерных навыков</div>
+      </div>
+      <label for="promoank[pclevel_id]" class="preField">Навыки</label>
+      <select name="promoank[pclevel_id]">
+        <% Pclevel.find(:all).each do |pl| %>
+          <option value="<%= pl.id %>"
+                  <%= ' selected' if (pl.id == @promoank.pclevel_id) %>>
+                    <%= pl.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :pcprogramms %>H">
+        <div>Укажите какими компьютерными программами Вы владеете</div>
+      </div>
+      <label for="<%= :pcprogramms %>" class="preField">Программное обеспечение</label>
+      <%= f.text_area :pcprogramms, :rows=>"5" %>
+    </span><br />
+
+
+  </fieldset>
+
+  <br />
+  <fieldset id="work_info" class="repeat">
+    <legend>Работа</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :workexp %>H">
+        <div>Укажите Ваш опыт работ</div>
+      </div>
+      <label for="<%= :workexp %>" class="preField">Опыт работ</label>
+      <%= f.text_area :workexp, :rows=>"5" %>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[workgraphic_id]H">
+        <div>Укажите желаемый график работ </div>
+      </div>
+      <label for="promoank[workgraphic_id]" class="preField">График</label>
+      <select name="promoank[workgraphic_id]">
+        <% Workgraphic.find(:all).each do |wg| %>
+          <option value="<%= wg.id %>"
+                  <%= ' selected' if (wg.id == @promoank.workgraphic_id) %>>
+                    <%= wg.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="promoank[workemployment_id]H">
+        <div>Укажите желаемую занятость</div>
+      </div>
+      <label for="promoank[workemployment_id]" class="preField">Занятость</label>
+      <select name="promoank[workemployment_id]">
+        <% Workemployment.find(:all).each do |we| %>
+          <option value="<%= we.id %>"
+                  <%= ' selected' if (we.id == @promoank.workemployment_id) %>>
+                    <%= we.name %>
+          </option>
+        <% end %>
+      </select>
+    </span><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :workcost %>H">
+        <div>Укажите уровень оплаты в час на который Вы рассчитываете</div>
+      </div>
+      <label for="<%= :workcost %>" class="preField">Уровень оплаты</label>
+      <%if @promoank.workcost != nil%>
+        <%= f.text_field :workcost %>
+      <%else%>
+        <%= f.text_field :workcost,:value => 0 %>
+      <%end%>
+    </span><br />
+
+  </fieldset>
+  <br />
+  <fieldset id="additional_info" class="repeat">
+    <legend>Дополнительно</legend>
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :skills %>H">
+        <div>Укажите какими дополнительными навыками Вы обладаете</div>
+      </div>
+      <label for="<%= :skills %>" class="preField">Дополнительные навыки</label>
+      <%= f.text_area :skills, :rows=>"5" %>
+    </span><br /><br />
+
+    <span class="oneField">
+      <div class="field-hint-inactive" id="<%= :skills %>H">
+        <div>У вас есть комментарии? Вы можете написать все, что Вы дополнительно пожелаете сообщить о себе.</div>
+      </div>
+      <label for="<%= :comment %>" class="preField">Комментарии</label>
+      <%= f.text_area :comment, :rows=>"5" %>
+    </span><br />
+  </fieldset>
+  <br />
+  <div class="actions">
+    <%= submit_tag "Сохранить", :class => "primaryAction"%>
+  </div>
+
+<% end %>
+
+<%= link_to "Назад", promomain_path_url (:page => 1) %>

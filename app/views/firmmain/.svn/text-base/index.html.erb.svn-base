@@ -1,0 +1,212 @@
+<%if (@firm.checkemail == false) %>
+<b style="color: red">Если вы не получили сообщение по электронной почте, </b><br/>
+<b style="color: red">Попробуйте повторить его нажав на ссылку! </b><%= link_to "Отправить", sendtofirm_path_url(:id => @firm.id) %>,<br/>
+<%end%>
+  </br>
+ 
+	<div class="anket_header">
+		<h6><%= @firm.name %></h6>  <h5>Баланс</h5><br />
+		<dl>
+			<dt>Баланс</dt>
+			<dd><%= @firm.acount %>, руб.</dd>
+			<dt>Статус</dt>
+			<dd><% if @firm.moderate == false %> <b style="color: red;">Не проверенна модератором (Покупка не доступна)!</b>
+				<%else%>
+				<% if @firm.active == true %><img src="/images/ico16_ok.gif" /> Активна <%else%><img src="/images/ico16_deact.gif" /> Неактивна (Покупка не доступна),
+				<%= link_to "Активировать", activefirm_path_url (:id => @firm.id) %>
+				<%end%>
+				<%end%>
+			</dd>
+		</dl>
+	</div>
+	
+<%if @page == "0" %>
+	<h5>Основной раздел <% if @firm.name? %>( Компания <%= @firm.name %>) <% end %></h5>
+	
+<br />
+<div>
+	<p>Приветствуем Вас на сайте Probaz.ru.</p>
+<br />
+
+	<p>У нас Вы можете найти хороших сотрудников за минимальное время, для решения собственных задач и задач Ваших Клиентов.</p><br />
+	<p>Для поиска сотрудников перейдите на Вкладку <strong>Отбор</strong> и отфильтруйте анкеты по тем параметрам, которые Вам нужны в данный момент.</p><br />
+	<p>После отбора, вы можете посмотреть анкетные данные. Если Вам понравилась анкета, то Вы можете получить контактные данные нажав на кнопку "Купить" в строке анкеты, после чего с Вашего лицевого счета спишеться стоимость анкеты. Вы сможете просмотреть контактные данные в разделе <strong>Анкеты</strong>. </p><br />
+<br />
+
+	<p>Если Вы еще не заполнили свои реквизиты, заполните их нажав на кнопку "Редактировать".</p>
+<br />
+
+<%= link_to "Редактировать", edit_firm_path (:id => @firm.id) %><br /><br />
+
+</div>
+
+<div id="anket">	
+
+	<div class="anket_data">
+		<h6>Контактные данные</h6>
+		<dl>
+			<dt>Контактное лицо</dt>
+			<dd><%= @firm.contact %></dd>			
+			<dt>E-mail</dt>
+			<dd><%= @firm.email %></dd>
+			<dt>Телефон</dt>
+			<dd><%= @firm.phone %></dd>
+			<dt>Факс</dt>
+			<dd><%= @firm.fax %></dd>	
+		</dl>
+	</div>
+	
+	<div class="anket_data">
+		<h6>Реквизиты</h6>
+		<dl>
+			<dt>Наименование</dt>
+			<dd><%= @firm.namefull %></dd>
+			<dt>ИНН</dt>
+			<dd><%= @firm.INN %></dd>
+			<dt>КПП</dt>
+			<dd><%= @firm.KPP %></dd>
+			<dt>Юридический адрес</dt>
+			<dd><%= @firm.addrur %></dd>
+		</dl>
+	</div>
+	<br />
+		
+	<div class="anket_data">
+		<h6>Почтовый адрес</h6>
+		<dl>
+			<dt>Город</dt>
+			<dd><%= @firm.addrcity %></dd>
+			<dt>Индекс</dt>
+			<dd><%= @firm.addrindex %></dd>
+			<dt>Адрес</dt>
+			<dd><%= @firm.addrpost %></dd>
+			<dt>Адрес Грузополучателя</dt>
+			<dd><%= @firm.addrrecive %></dd>
+			<dt>Индекс</dt>
+			<dd><%= @firm.addrindex %></dd>
+		</dl>
+	</div>
+	<br />
+	
+	<div class="anket_data">
+		<h6>Банковские данные</h6>
+		<dl>
+			<dt>Наименование</dt>
+			<dd><%= @firm.bankname %></dd>
+			<dt>БИК</dt>
+			<dd><%= @firm.BIK %></dd>
+			<dt>к/с</dt>
+			<dd><%= @firm.ks %></dd>
+			<dt>Номер счета</dt>
+			<dd><%= @firm.acountnumber %></dd>
+		</dl>
+	</div>
+	<br />
+	<div class="clear"></div>
+</div>
+
+<%end%>
+
+<%if @page == "2" %>
+<h5>Отбор анкет</h5>
+<br />
+
+<div>
+	<p>В этом разделе Вы можете производить выборку анкет по базе данных. Для этого Вам нужно нажать на ссылке "Произвести выборку", установить параметры фильтрации и нажать на кнопку Отобрать.</p><br />
+	<p>Вы можете посмотреть анкету человека без контактных данных, перейдя в карточку анкеты, нажав на его Фамилию. После покупки анкеты Вам будут доступные его контактные данные и Вы сможете пригласить его на работу.<p/><br />
+	<p>Для покупки анкеты нажмите на кнопке <%= image_tag("/images/coins_add.png", :alt => "Купить") %>. При покупке анкеты с Вас спишут соответствующую стоимость анкеты.</p><br />
+	<p>Для того, чтобы убрать человека из списка отбора нажмите на кнопку  <%= image_tag("/images/cross.png", :alt => "Убрать") %></p><br />
+<br />
+
+<%= link_to "Произвести выборку", filter_path_url (:firm_id => @firm.id) %><br/>
+<%=link_to "<<-- в начало ", firmmain_path_url (:page => 2,:pos => '<') %>..<%=link_to "<- предыдущие 50", firmmain_path_url (:page => 2,:pos => '-') %>/<%=link_to "следующие 50 ->", firmmain_path_url (:page => 2,:pos => '+') %><br/>
+<%= "Анкеты с " %><%= session[:posorder] %><%= " по " %><%= session[:posorder]+50 %>
+</div>
+
+<br />
+
+<table class="ankets" id="contacts" cellspacing="0" summary="Список отобранных потенциальных сотрудников">
+  <tr>
+    <th scope="col" class="nobg">ФИО</th>
+    <th scope="col">Фотографии</th>
+    <th scope="col">Телефоны</th>
+    <th scope="col">Последний вход</th>
+    <th scope="col" class="nobg"></th>
+    <th scope="col" class="nobg"></th>
+  </tr>
+
+<% @selanks.each do |selank| %>
+  <tr>
+  	
+    <th scope="row" class="spec"><%=link_to selank.fio,selank %></th>
+    
+    <%if selank.promoank.files != ''%>
+        <td>Есть</td>
+        <%else%>
+        <td>Нет</td>
+        <%end%>
+        
+    <td><%= selank.promoank.hasphonerus %></td>
+    <td><%= selank.promoank.lastlogin %></td>
+    <%if (@firm.active==true) and (@firm.moderate==true)%>
+    <td>
+    	
+    	<%= link_to "#{image_tag("/images/coins_add.png", :alt => "Купить")}", selank_pay_path_url(:id =>selank.id), :confirm => 'Купить анкету? При нажатии на кнопку ДА с Вашего лицевого счета спишется стоимость анкеты.' %>
+	</td>
+    <%else%>
+    <td>Покупка не доступна!</td>
+    <%end%>
+    
+    <td>
+    	<%= link_to "#{image_tag("/images/cross.png", :alt => "Убрать")}", selank, :confirm => 'Вы уверенны, что хотите убрать человека из отбора?', :method => :delete %>
+    	
+	</td>
+  </tr>
+<% end %>
+</table>
+
+<%end%>
+<%if @page == "3" %>
+<h5>Купленные Анкеты:</h5>
+<br />
+
+<div>
+	<p>В этом разделе Вы можете посмотреть приобретенные анкеты и контактные данные сотрудников. </p><br />
+	<p>Вы можете посмотреть анкету человека с его контактными данными, перейдя в карточку анкеты, нажав на его Фамилию. Если его анкета подходит для Вас, Вы можете позвонить ему и пригласить его на собеседование.<p/><br />
+	<p>Если у человека изменились контактные данные Вы можете обновить их, обновив анкету. Для этого нажмите на кнопке <%= image_tag("/images/coins_add.png", :alt => "Купить") %>. При покупке анкеты с Вас спишут соответствующую стоимость обновления анкеты.</p><br />
+</div>
+<br /><%=link_to "<<-- в начало ", firmmain_path_url (:page => 3,:poss => '<') %>..<%=link_to "<- предыдущие 50", firmmain_path_url (:page => 3,:poss => '-') %>/<%=link_to "следующие 50 ->", firmmain_path_url (:page => 3,:poss => '+') %><br/>
+<%= "Анкеты с " %><%= session[:pospayed] %><%= " по " %><%= session[:pospayed]+50 %>
+
+<table class="ankets" id="contacts" cellspacing="0" summary="Список приобретенных анкет потенциальных сотрудников">
+  <tr>
+    <th scope="col" class="nobg">ФИО</th>
+    <th colspan="2" scope="col">Контакты</th>
+    <th scope="col">Статус Анкеты</th>
+  </tr>
+<% @payanks.each do |selank| %>
+  <tr>
+    <th rowspan="3" width="30%" scope="row" class="spec"><%=link_to selank.fio,selank %></th>
+    <td width="25%">Мобильный</td>
+  	<td><%=h selank.contact.split(/,/)[0] %></td>
+    <%if selank.checkcontact %>
+    	<td rowspan="3"  width="20%" >
+    		<strong style="color: red"><%= image_tag("/images/ico16_deact.gif", :alt=>"Изменена") %> Изменена </strong>
+    		<%= link_to "#{image_tag("/images/coins_add.png", :alt => "Купить")}", selank_uppay_path_url(:id =>selank.id), :confirm => 'Купить обновление анкеты? При нажатии на кнопку ДА с Вашего лицевого счета спишется стоимость обновления анкеты.' %>
+		</td>
+    <%else%>
+    	<td rowspan="3"  width="20%" ><%= image_tag("/images/ico16_ok.gif", :alt=>"Актуальная") %> Актуальная</td>
+    <%end%>
+  </tr>
+  <tr>
+  	<td width="25%">Домашний</td>
+  	<td><%=h selank.contact.split(/,/)[1] %></td>
+  </tr>
+  <tr>
+  	<td width="25%">E-mail</td>
+  	<td><%=h selank.contact.split(/,/)[2] %></td>
+  </tr>
+<% end %>
+</table>
+
+<%end%>

@@ -1,0 +1,82 @@
+<h1>Редактирование</h1>
+
+<% form_for(@firm) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.hidden_field :email %>
+  </p>
+  <p>
+    <%= f.label "Краткое наименование" %><br />
+    <%= f.text_field :name %>
+  </p>
+ <p>
+    <%= f.label "Телефон" %><br />
+    <%= f.text_field :phone %>
+  </p>
+ <p>
+    <%= f.label "Факс" %><br />
+    <%= f.text_field :fax %>
+  </p>
+  <p>
+    <%= f.label "Почтовый адрес (город)" %><br />
+    <%= f.text_field :addrcity %>
+  </p>
+  <p>
+    <%= f.label "Почтовый адрес (индекс)" %><br />
+    <%= f.text_field :addrindex %>
+  </p>
+  <p>
+    <%= f.label "Почтовый адрес (адрес)" %><br />
+    <%= f.text_field :addrpost %>
+  </p>
+  <p>
+    <%= f.label "Почтовый адрес (Грузополучателя)" %><br />
+    <%= f.text_field :addrrecive %>
+  </p>
+  <p>
+    <%= f.label "ИНН" %><br />
+    <%= f.text_field :INN %>
+  </p>
+  <p>
+    <%= f.label "КПП" %><br />
+    <%= f.text_field :KPP %>
+  </p>
+  <p>
+    <%= f.label "Полное наименование организации (укажите форму собственности фббревиатурой)" %><br />
+    <%= f.text_field :namefull %>
+  </p>
+  <p>
+    <%= f.label "Представить (Контактное лицо)" %><br />
+    <%= f.text_field :contact %>
+  </p>
+  <p>
+    <%= f.label "Юридический адрес" %><br />
+    <%= f.text_field :addrur %>
+  </p>
+  <p>
+    <%= f.label "Счет" %><br />
+    <%= f.text_field :acountnumber %>
+  </p>
+  <p>
+    <%= f.label "БИК" %><br />
+    <%= f.text_field :BIK %>
+  </p>
+  <p>
+    <%= f.label "к/с" %><br />
+    <%= f.text_field :ks %>
+  </p>
+  <p>
+    <%= f.label "Наименование банка" %><br />
+    <%= f.text_field :bankname %>
+  </p>
+
+  <p>
+    <%= f.label "Пароль" %><br />
+    <%= f.password_field :pass %>
+  </p>
+  <p>
+    <%= f.submit 'Сохранить' %>
+  </p>
+<% end %>
+
+<%= link_to 'Назад', firmmain_path_url %>

@@ -1,0 +1,10 @@
+<div class="flash">			
+	<% if flash.size > 0%>
+        <ol>
+		<%- flash.each do |name, msg| -%>
+    		<%= content_tag :li, msg, :id => "flash_#{name}" , :class => "errMsg"%>  
+    	<%- end -%>
+	</ol>
+    	<% end %>
+
+</div>	

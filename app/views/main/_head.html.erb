@@ -1,0 +1,14 @@
+    <title><%= h(@title) %> - Probaz.ru</title>
+	<%= stylesheet_link_tag 'stylesheet' %>  
+	<script type="text/javascript" src="/javascripts/prototype.js"></script>
+	<script type="text/javascript" src="/javascripts/scriptaculous.js?load=effects,builder"></script>
+	<script type="text/javascript" src="/javascripts/stereotabs.js"></script>	
+	<script type="text/javascript">
+	//<![CDATA[
+		Event.observe(window, 'load', loadTabs, false);
+			function loadTabs() {
+				var tabs = new tabset('container'); // name of div to crawl for tabs and panels
+				tabs.autoActivate($('tab_first')); // name of tab to auto-select if none exists in the url
+		}
+	//]]>
+	</script>

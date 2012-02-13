@@ -1,0 +1,24 @@
+<h1>Listing firms</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Pass</th>
+  </tr>
+
+<% @firms.each do |firm| %>
+  <tr>
+    <td><%=h firm.name %></td>
+    <td><%=h firm.email %></td>
+    <td><%=h firm.pass %></td>
+    <td><%= link_to 'Show', firm %></td>
+    <td><%= link_to 'Edit', edit_firm_path(firm) %></td>
+    <td><%= link_to 'Destroy', firm, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New firm', new_firm_path %>

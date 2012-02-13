@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  fio: MyString
+  contact: MyText
+  selection: 
+  promoank: 
+
+two:
+  fio: MyString
+  contact: MyText
+  selection: 
+  promoank: 

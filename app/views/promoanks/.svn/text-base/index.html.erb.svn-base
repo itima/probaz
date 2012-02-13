@@ -1,0 +1,28 @@
+<h1>Listing promoanks</h1>
+
+<table>
+  <tr>
+    <th>Fname</th>
+    <th>Lname</th>
+    <th>Nameto</th>
+    <th>Email</th>
+    <th>Pass</th>
+  </tr>
+
+<% @promoanks.each do |promoank| %>
+  <tr>
+    <td><%=h promoank.fname %></td>
+    <td><%=h promoank.lname %></td>
+    <td><%=h promoank.nameto %></td>
+    <td><%=h promoank.email %></td>
+    <td><%=h promoank.pass %></td>
+    <td><%= link_to 'Show', promoank %></td>
+    <td><%= link_to 'Edit', edit_promoank_path(promoank) %></td>
+    <td><%= link_to 'Destroy', promoank, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New promoank', new_promoank_path %>

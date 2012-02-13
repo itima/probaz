@@ -1,0 +1,71 @@
+<div class="col1"><h3>Регистрация!</h3>
+
+<div class="instructions">
+	Для регистрации введите пожалуйста Ваши данные и Вам придет письмо с подтверждением регистрации, после этого Вы сможете продолжать работу.	
+</div> 
+<%= render :partial => "main/flash", :object => flash %>
+
+<% form_tag do %>
+
+<fieldset id="registration" class="repeat"> 
+	<legend>Регистрация</legend> 
+	<span class="oneField">
+		
+	</span>
+	<span class="oneField">
+		<div class="field-hint-inactive" id="<%= :what %>">
+			<div>Выберите тип пользователя, который хотите зарегистрировать.</div>
+		</div>
+		<span class="label preField">Тип пользователя</span>
+			<span class="required">
+				<span class="oneChoice">
+					<%= radio_button_tag :what, 1,'checked' %>  
+					<label for="<%= :what %>_1" id="<%= :what %>_1L" class="postField">Соискатель</label>
+				</span>
+				<span class="oneChoice">
+					 <%= radio_button_tag :what, 0 %> 
+					<label for="<%= :what %>_0" id="<%= :what %>_0L" class="postField">Организация</label>
+				</span>
+			</span>
+		<span class="reqMark">*</span><br /><br /><br />
+	</span>
+	<span class="oneField">
+		<div class="field-hint-inactive" id="<%= :login %>H">
+			<div>Введите действующий e-mail. Он будет использоваться в качестве имени пользователя для входа на сайт</div>
+		</div>
+		<label for="<%= :login %>" class="preField">Введите e-mail</label>
+		<%= text_field_tag :login  %>
+		<span class="reqMark">*</span><br /><br /><br />
+	</span>
+	<span class="oneField">
+		<div class="field-hint-inactive" id="<%= :pass %>H">
+			<div>Введите пароль для входа на сайт</div>
+		</div>
+		<label for="<%= :login %>" class="preField">Введите пароль</label>
+		<%= password_field_tag :pass %>
+		<span class="reqMark">*</span><br /><br /><br />
+	</span>
+	<span class="oneField">
+		<div class="field-hint-inactive" id="<%= :kod %>H">
+			<div>Введите значение формулы, для того чтобы убедиться, что Вы не робот</div>
+		</div>
+		<label for="<%= :kod %>" class="preField">Код защиты</label>
+		 <%= @str %><%= text_field_tag :kod %>
+		<span class="reqMark">*</span><br />
+	</span>
+
+ 	<%= hidden_field_tag :fid, @fid %>
+ 	<%= hidden_field_tag :nid, @nid %>
+ 	<%= hidden_field_tag :val, @svar %>
+ 
+</fieldset> 
+<div class="actions">
+	<%= submit_tag "Регистрация", :class => "primaryAction"%>
+</div> 
+
+<%end%>
+
+
+  
+<%= link_to "Назад",main_path_url %>
+</div>

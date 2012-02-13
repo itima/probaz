@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" >
+  <head>
+    <title><%= h(@title) %> - Probaz.ru</title>
+	<%= stylesheet_link_tag 'stylesheet' %>  
+	<%= stylesheet_link_tag 'lightbox' %>  
+	
+	<script type="text/javascript" src="/javascripts/prototype.js"></script>
+	<script type="text/javascript" src="/javascripts/scriptaculous.js?load=effects,builder"></script>
+	<script type="text/javascript" src="/javascripts/lightbox.js"></script>
+ 	<%= yield(:head) %> 
+  </head>
+  <body>
+	<div id="container">  
+		  
+	  	<div id="top_menu">
+	  		<ul>
+	  			<li><%= link_to 'Свяжитесь с нами', contact_path %></li>
+	  			<li> | </li>
+	  			<li><%= link_to "Выход",:controller => 'main', :action => 'logout' %></li>
+	  			<li> | </li>
+	  			<li><a href="<%= promomain_path_url (:page => 1) %>">
+                                      <%if @ank == nil%>
+                                       <%= Promoank.find_by_email(session[:user_id]).email %>
+                                      <%else%>
+                                        <%= @ank.email %>
+                                      <%end%>
+                                    </a></li>
+	  		</ul>
+  		</div><!-- end top_menu -->
+	  		
+	  	<div id="header">
+	  		<div id="logo"><a href="/">probaz.ru</a></div>
+	  		<div class="leftTabs"> 
+  				
+	  			<% if @page=="0" then%>
+				<div class="activeTab"> 
+				<% else %>
+				<div class="Tab"> 
+				<% end %>
+					<div class="tabLeftCorner"></div>
+					<div class="tabContent"><a href="<%= promomain_path_url (:page => 0) %>">Основная</a></div> 
+					<div class="tabRightCorner"></div> 
+				</div> 
+	  
+	  			<% if @page=="1" then%>
+				<div class="activeTab"> 
+				<% else %>
+				<div class="Tab"> 
+				<% end %>
+					<div class="tabLeftCorner"></div> 
+					<div class="tabContent"><a href="<%= promomain_path_url (:page => 1) %>">Анкета</a></div> 
+					<div class="tabRightCorner"></div> 
+				</div> 
+				
+	  			<% if @page=="2" then%>
+				<div class="activeTab"> 
+				<% else %>
+				<div class="Tab"> 
+				<% end %>
+					<div class="tabLeftCorner"></div> 
+					<div class="tabContent"><a href="<%= promomain_path_url(:page => 2)%>">Фотографии</a></div> 
+					<div class="tabRightCorner"></div> 
+				</div> 
+			</div> 
+	  	</div><!-- end header -->
+	  	
+	  	
+	  	
+	  	<div id="content1col">
+	  		<div class="col1">
+				<%= render :partial => "main/flash", :object => flash %>
+				<%= yield %>  
+			</div>
+  		</div><!-- end main -->
+  			  	
+  		<div id="push" class="clearfix"> </div>
+
+  	</div>
+  	  		
+	<div id="footer">
+  		<p id="footer-text"> Copyright 2009 by probaz.ru</p>
+  		<p></p>
+  	</div>
+  	  	<%= render :partial => "main/counters" %>
+  </body>
+</html>

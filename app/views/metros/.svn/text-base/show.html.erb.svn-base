@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @metro.name %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @metro.city %>
+</p>
+
+
+<%= link_to 'Edit', edit_metro_path(@metro) %> |
+<%= link_to 'Back', metros_path %>

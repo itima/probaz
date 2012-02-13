@@ -1,0 +1,18 @@
+<p>
+  <b>Promoank:</b>
+  <%=h @anktogroup.promoank %>
+</p>
+
+<p>
+  <b>Ankgroup:</b>
+  <%=h @anktogroup.ankgroup %>
+</p>
+
+<p>
+  <b>Main:</b>
+  <%=h @anktogroup.main %>
+</p>
+
+
+<%= link_to 'Edit', edit_anktogroup_path(@anktogroup) %> |
+<%= link_to 'Back', anktogroups_path %>

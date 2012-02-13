@@ -1,0 +1,255 @@
+<div id="anket">
+
+  <div class="anket_header">
+    <h3><%= ank.fio %></h3> <br />
+    <dl>
+      <dt>Дата рождения</dt>
+      <dd><%= ank.birthday %></dd>
+      <% if !firm %>
+        <dt>Электронная почта</dt>
+        <dd><%= ank.email %></dd>
+        <% if ank.factphone?%>
+          <dt>Домашний телефон</dt>
+          <dd><%= ank.factphone %></dd>
+        <% end %>
+        <% if (ank.mobilephone?) %>
+          <dt>Мобильный телефон</dt>
+          <dd><%= ank.mobilephone %> </dd>
+        <% end %>
+      <% else %>
+        <% if selank && selank.payed %>
+           <dt>Контактные данные</dt>
+          <dd><%= selank.contact  %> </dd>
+        <% end %>
+      <% end %>
+      <% if ank.passcity_id?%>
+        <dt>Город</dt>
+        <dd> <%= City.find(ank.passcity_id).name %> </dd>
+      <%end%>
+      <% if ank.sex?%>
+        <dt>Пол</dt>
+        <dd> <%if ank.sex == true %>Мужской
+          <%else%>Женский
+        <%end%></dd>
+      <%end%>
+    </dl>
+  </div>
+  <br />
+
+  <div class="anket_data">
+    <h6>Специализация</h6>
+    <dl>
+      <% @anktogroups.each do |anktogroup| %>
+        <dt><%= anktogroup.ankgroup.name  %> </dt>
+        <dd><%if anktogroup.main==true %>Основная<% else %>Дополнительная<%end%>&nbsp;</dd>
+      <% end %>
+    </dl>
+  </div>
+
+  <div class="anket_data">
+    <h6>Личные данные</h6> <br />
+    <dl>
+      <% if ank.growth?%>
+        <dt>Рост</dt>
+        <dd><%= ank.growth %> см.</dd>
+      <% end %>
+      <% if ank.weight?%>
+        <dt>Вес</dt>
+        <dd><%= ank.weight %> кг.</dd>
+      <% end %>
+      <% if ank.clothessize?%>
+        <dt>Размер одежды</dt>
+        <dd><%= ank.clothessize %></dd>
+      <% end %>
+      <% if ank.bootssize?%>
+        <dt>Размер обуви</dt>
+        <dd><%= ank.bootssize %></dd>
+      <% end %>
+      <% if ank.haircolor_id?%>
+        <dt>Цвет Волос</dt>
+        <dd><%= ank.haircolor.name %></dd>
+      <% end %>
+      <% if ank.hairlength_id?%>
+        <dt>Длина Волос</dt>
+        <dd><%= ank.hairlength.name %></dd>
+      <% end %>
+      <% if ank.faces? %>
+        <dt>Особенности внешности</dt>
+        <dd><%= ank.faces %></dd>
+      <% end %>
+      <% if ank.merried?%>
+        <dt>Семейное положение</dt>
+        <dd>
+          <%if ank.merried==true %>
+            <% if ank.sex=true %>
+              Женат
+            <%else%>
+              За мужем
+            <% end %>
+          <% else %>
+            <% if ank.sex=true %>
+              Холост
+            <%else%>
+              Не замужем
+            <% end %>
+          <%end%></dd>
+        <%end%>
+    </dl>
+  </div>
+
+  <div class="anket_data">
+    <h6>Образование</h6><br />
+    <dl>
+      <% if ank.education_id? %>
+        <dt>Образование</dt>
+        <dd><%= ank.education.name %></dd>
+      <% end %>
+      <% if ank.educationform_id? %>
+        <dt>Форма обучения</dt>
+        <dd><%= ank.educationform.name %></dd>
+      <% end %>
+      <% if ank.institute? %>
+        <dt>Уч. заведение</dt>
+        <dd> <%= ank.institute %></dd>
+      <% end %>
+      <% if ank.educationspec? %>
+        <dt>Специальность</dt>
+        <dd><%= ank.educationspec %></dd>
+      <% end %>
+      <% if ank.educationstart? %>
+        <dt>Дата поступления</dt>
+        <dd><%= ank.educationstart %></dd>
+      <% end %>
+      <% if ank.educationstop? %>
+        <dt>Дата окончания</dt>
+        <dd><%= ank.educationstop %> </dd>
+      <% end %>
+    </dl>
+  </div>
+
+  <div class="anket_data">
+    <h6>Иностранные языки </h6> <%= link_to 'Указать', new_anktolang_path(:ank_id =>ank.id) unless ank.id!=session[:user_id] %>
+    <dl>
+      <% @anktolangs.each do |anktolang| %>
+        <dt><%=  anktolang.language.name %></dt>
+        <dd><%=h anktolang.langlevel.name %>&nbsp;</dd>
+      <% end %>
+    </dl>
+  </div>
+  <% if !firm %>
+
+    <div class="anket_data">
+      <h6>Паспортные данные</h6><br />
+      <dl>
+        <% if ank.passseries? %>
+          <dt>Серия</dt>
+          <dd><%= ank.passseries %></dd>
+        <% end %>
+        <% if ank.passnumber? %>
+          <dt>Номер</dt>
+          <dd><%= ank.passnumber %></dd>
+        <% end %>
+        <% if ank.passdate? %>
+          <dt>Дата выдачи</dt>
+          <dd><%= ank.passdate %></dd>
+        <% end %>
+        <% if ank.passwho? %>
+          <dt>Кем выдан</dt>
+          <dd><%= ank.passwho %></dd>
+        <% end %>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Адрес прописки</h6><br />
+      <dl>
+        <% if ank.passcity_id? %>
+          <dt>Город</dt>
+          <dd><%= City.find(ank.passcity_id).name %></dd>
+        <% end %>
+        <% if ank.passindex? %>
+          <dt>Индекс</dt>
+          <dd><%= ank.passindex %></dd>
+        <% end %>
+        <% if ank.passstreet? %>
+          <dt>Улица</dt>
+          <dd><%= ank.passstreet %></dd>
+        <% end %>
+        <% if ank.passhouse? %>
+          <dt>Дом</dt>
+          <dd><%= ank.passhouse %></dd>
+        <% end %>
+        <% if ank.citizenship? %>
+          <dt>Гражданство РФ</dt>
+          <dd><%if ank.citizenship==true %> Да <%else%> Нет <%end%></dd>
+        <% end %>
+      </dl>
+    </div>
+    <div class="anket_data">
+      <h6>Фактический адрес</h6><br />
+      <dl>
+        <% if ank.factcity_id? %>
+          <dt>Город</dt>
+          <dd><%= City.find(ank.factcity_id).name %></dd>
+        <% end %>
+        <% if ank.factindex? %>
+          <dt>Индекс</dt>
+          <dd><%= ank.factindex %></dd>
+        <% end %>
+        <% if ank.factmetro_id? %>
+          <dt>Метро</dt>
+          <dd><%= Metro.find(ank.factmetro_id).name %></dd>
+        <% end %>
+        <% if ank.factstreet? %>
+          <dt>Улица</dt>
+          <dd><%= ank.factstreet %></dd>
+        <% end %>
+        <% if ank.facthouse? %>
+          <dt>Дом</dt>
+          <dd><%= ank.facthouse %></dd>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+  <div class="anket_data">
+    <h6>Транспорт</h6><br />
+    <dl>
+      <dt>Вод.уд.</dt>
+      <dd><%if ank.drivercard==true %> Да <%else%> Нет <%end%></dd>
+      <dt>Автомобиль</dt>
+      <dd><%if ank.hascar==true %> Да <%else%> Нет <%end%></dd>
+      <dt>Марка</dt>
+      <dd><%= ank.carmark %></dd>
+    </dl>
+  </div>
+
+  <div class="anket_data">
+    <h6>Медкнижка</h6><br />
+    <dl>
+      <dt>Наличие</dt>
+      <dd><%if ank.hasmedbook==true %> Да <%else%> Нет <%end%></dd>
+      <dt>Номер</dt>
+      <dd><%= ank.medbooknumber %></dd>
+      <dt>Дата окончание</dt>
+      <dd><%= ank.medbookstop %></dd>
+    </dl>
+  </div>
+</div>
+<div class="clear"></div>
+<div class="anket_fotos">
+  <h3>Портфолио</h3><br />
+  <% if @files!=nil %>
+    <ul>
+      <% @files.each do |file| %>
+        <li>
+          <a href="../<%= file.split(/&/)[1].to_s %>" rel="lightbox[foto]" ><%= file.split(/&/)[0].to_s %> <br />
+            <img  class="list-image" width="200" src="../<%= file.split(/&/)[1].to_s %>" />
+          </a> <br /><br />
+        </li>
+      <%end%>
+    </ul>
+  <% end %>
+
+</div>
+
+<div class="clear"></div>

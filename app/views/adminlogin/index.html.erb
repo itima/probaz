@@ -1,0 +1,26 @@
+<div class="grid_8 prefix_4 suffix_4">
+  <div class="box">
+    <h2>
+      <a id="toggle-login-forms" href="#">Вход для администраторов</a>
+    </h2>
+    <div id="login-forms" class="block">
+      <% form_tag do %>
+          <fieldset class="login">
+            <legend>Вход</legend>
+            <p class="notice">Для входа необходимо ввести код администратора и пароль.</p>
+            <p style="color: red"><%= flash[:notice] %></p>
+            <p>
+              <label>Код администратора: </label>
+              <%= text_field_tag :login,params[:login] %>
+            </p>
+            <p>
+              <label>Пароль: </label>
+              <%= password_field_tag :pass,params[:pass] %>
+            </p>
+              <%= submit_tag "Войти", :class => "login button" %>
+          </fieldset>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= link_to "Назад",main_path_url %>

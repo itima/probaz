@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  objid: 1
+  objtype: MyString
+  accin: false
+
+two:
+  objid: 1
+  objtype: MyString
+  accin: false

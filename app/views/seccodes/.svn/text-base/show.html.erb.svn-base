@@ -1,0 +1,13 @@
+<p>
+  <b>Name:</b>
+  <%=h @seccode.name %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%=h @seccode.value %>
+</p>
+
+
+<%= link_to 'Edit', edit_seccode_path(@seccode) %> |
+<%= link_to 'Back', seccodes_path %>

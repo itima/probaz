@@ -1,0 +1,26 @@
+<h1>Listing selanks</h1>
+
+<table>
+  <tr>
+    <th>Fio</th>
+    <th>Contact</th>
+    <th>Selection</th>
+    <th>Promoank</th>
+  </tr>
+
+<% @selanks.each do |selank| %>
+  <tr>
+    <td><%=h selank.fio %></td>
+    <td><%=h selank.contact %></td>
+    <td><%=h selank.selection %></td>
+    <td><%=h selank.promoank %></td>
+    <td><%= link_to 'Show', selank %></td>
+    <td><%= link_to 'Edit', edit_selank_path(selank) %></td>
+    <td><%= link_to 'Destroy', selank, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New selank', new_selank_path %>

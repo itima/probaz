@@ -1,0 +1,143 @@
+<%if @page=='0'%>
+  <h5>Непроверенные анкеты</h5>
+  <br />
+  <table class="ankets" id="contacts" cellspacing="0" summary="Список отобранных потенциальных сотрудников">
+    <tr>
+      <th scope="col" class="nobg">ФИО</th>
+      <th scope="col">email</th>
+      <th  scope="col">Моб.телефон</th>
+      <th scope="col">Дом.телефон</th>
+      <th scope="col">Фотографии Есть/Нет</th>
+    </tr>
+
+    <% @nanks.each do |promoank| %>
+
+      <tr>
+
+        <th scope="row" class="spec"><%= link_to promoank.id.to_s+" "+promoank.fio, promoank %></th>
+        <td><%=h promoank.email %></td>
+        <td><%=h promoank.mobilephone %></td>
+        <td><%=h promoank.factphone %></td>
+        <%if promoank.files != ''  and promoank.files != nil%>
+          <td>Есть</td>
+        <%else%>
+          <td>Нет</td>
+        <%end%>
+
+      </tr>
+    <% end %>
+  </table>
+
+<%end%>
+
+<%if @page=='1'%>
+  <h5>Все анкеты</h5>
+  <br />
+  <table class="ankets" id="contacts" cellspacing="0" summary="Список отобранных потенциальных сотрудников">
+    <tr>
+      <th scope="col" class="nobg">ФИО</th>
+      <th scope="col">email</th>
+      <th  scope="col">Моб.телефон</th>
+      <th scope="col">Дом.телефон</th>
+      <th scope="col">Фотографии Есть/Нет</th>
+      <th>Последний вход</th>
+    </tr>
+
+    <% @anks.each do |promoank| %>
+
+
+      <tr>
+
+        <th scope="hrow" class="spec"><%= link_to promoank.id.to_s+" "+promoank.fio, promoank %></th>
+        <td><%=h promoank.email %></td>
+        <td><%=h promoank.mobilephone %></td>
+        <td><%=h promoank.factphone %></td>
+        <%if promoank.files != '' and promoank.files != nil %>
+          <td>Есть</td>
+        <%else%>
+          <td>Нет</td>
+        <%end%>
+        <td><%=h promoank.lastlogin %></td>
+
+      </tr>
+    <% end %>
+  </table>
+
+
+<%end%>
+
+<%if @page=='2'%>
+  <h5>Непроверенные организации</h5>
+  <br />
+  <table class="ankets" id="contacts" cellspacing="0" summary="Список отобранных потенциальных сотрудников">
+    <tr>
+      <th scope="col" class="nobg">Название</th>
+      <th scope="col">Email</th>
+      <th scope="col" class="nobg" colspan="2">Действия</th>
+    </tr>
+
+    <% @nfirms.each do |firm| %>
+      <tr>
+        <th scope="hrow" class="spec"><%= link_to firm.id.to_s+" "+firm.name, firm %></th>
+        <td><%=h firm.email %></td>
+        <td><%= link_to 'Подтвердить', moderatefirm_path_url(:id => firm.id) %></td>
+        <td><%= link_to 'Удалить', firm, :confirm => 'Вы уверенны?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+<%end%>
+<%if @page=='3'%>
+  <h5>Все организации</h5>
+  <br />
+  <table class="ankets" id="contacts" cellspacing="0" summary="Список отобранных потенциальных сотрудников">
+    <tr>
+      <th scope="col" class="nobg">Название</th>
+      <th scope="col">Email</th>
+      <th scope="col">Сумма на счете</th>
+      <th scope="col">Последний вход</th>
+      <th scope="col" class="nobg" >Действия</th>
+    </tr>
+
+    <% @firms.each do |firm| %>
+      <tr>
+        <th scope="hrow" class="spec"><%= link_to firm.id.to_s+" "+firm.name, firm %></th>
+        <td><%=h firm.email %></td>
+        <td><%=h firm.acount %></td>
+        <td><%=h firm.lastlogin %></td>
+        <td><%= link_to 'Поплнить счет', firm %></td>
+      </tr>
+    <% end %>
+  </table>
+<%end%>
+
+<%if @page=='4'%>
+  <h5>Справочники</h5>
+  <ul>
+    <li>
+      <%= link_to "Специализации анкет",ankgroups_path %>
+    </li><li>
+      <%= link_to "Города",cities_path %>
+    </li><li>
+      <%= link_to "Формы обучения",educationforms_path %>
+    </li><li>
+      <%= link_to "Вид образования",educations_path %>
+    </li><li>
+      <%= link_to "Цвет волос",haircolors_path %>
+    </li><li>
+      <%= link_to "Длина волос",hairlengths_path %>
+    </li><li>
+      <%= link_to "Уровень владения ин. яз.",langlevels_path %>
+    </li><li>
+      <%= link_to "Иностранные языки",languages_path %>
+    </li><li>
+      <%= link_to "Метро",metros_path %>
+    </li><li>
+      <%= link_to "Уровень владения компьютером",pclevels_path %>
+    </li><li>
+      <%= link_to "График работ",workgraphics_path %>
+    </li><li>
+      <%= link_to "Занятость",workemployments_path %>
+    </li><li>
+    <%= link_to "Защитные коды",seccodes_path %></li>
+  </ul>
+<%end%>

@@ -1,0 +1,24 @@
+<h1>Listing logers</h1>
+
+<table>
+  <tr>
+    <th>Objid</th>
+    <th>Objtype</th>
+    <th>Accin</th>
+  </tr>
+
+<% @logers.each do |loger| %>
+  <tr>
+    <td><%=h loger.objid %></td>
+    <td><%=h loger.objtype %></td>
+    <td><%=h loger.accin %></td>
+    <td><%= link_to 'Show', loger %></td>
+    <td><%= link_to 'Edit', edit_loger_path(loger) %></td>
+    <td><%= link_to 'Destroy', loger, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New loger', new_loger_path %>

@@ -1,0 +1,20 @@
+<h1>Графики работ</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+  </tr>
+
+<% @workgraphics.each do |workgraphic| %>
+  <tr>
+    <td><%= link_to  workgraphic.name, edit_workgraphic_path(workgraphic) %></td>
+    <td><%= link_to 'Удалить', workgraphic, :confirm => 'Вы уверенны?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новый граффик', new_workgraphic_path %>
+<br />
+<%= link_to "назад",adminmain_path_url(:page => 4)  %>

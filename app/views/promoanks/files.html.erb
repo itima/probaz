@@ -1,0 +1,51 @@
+<h5>Фотогалерея</h5> <br />
+
+<div id="formGarden"> 
+	<% form_tag(ankfotos_path_url,:multipart => true ) do %>
+	<fieldset id="news_fields" class="repeat"> 
+		<legend>Загрузить фотографию</legend> 
+		<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Выберите файл с фотографией на Вашем компьютере размером не болл 500 Kb</div></div>
+			<label for="par" class="preField">Фотография</label>
+			<input type="file" name="par" id="myfile" size="27"  class="required" />
+			<span class="reqMark">*</span><br />
+		</span> <br />
+	   	<span class="oneField">
+			<div class="field-hint-inactive" id="<%= "#{:fname}_H" %>"><div>Введите название фотографии</div></div>
+			<label for="<%= :fname %>" class="preField">Название фотографии</label>
+			<%= text_field_tag :fname,"" , :class => "required" %>
+			<span class="reqMark">*</span><br />
+		</span>
+	  <br />
+	  <%= hidden_field_tag :id,@ank.id %>
+	  <%= hidden_field_tag :act,"add" %>
+	  <div class="actions">
+	  	<%= submit_tag "Загрузить",  :class=>"primaryAction" %>
+	  </div> 
+	 </fieldset>
+ <% end %>
+</div>
+
+<div class="anket_fotos">
+	<h6>Портфолио</h6><br />
+	<% if @files!=nil %>
+		<ul>
+			<% @files.each do |file| %>
+			<li>
+				<a href="../<%= file.split(/&/)[1].to_s %>" rel="lightbox[foto]" ><%= file.split(/&/)[0].to_s %> <br />
+					<img  class="list-image" width="200" src="../<%= file.split(/&/)[1].to_s %>" />
+				</a>
+				<% form_tag(ankfotos_path_url) do %>
+				     <%= hidden_field_tag :id,@ank.id %>
+				    <%= hidden_field_tag :par,file %>
+				    <%= hidden_field_tag :act,"del" %>
+				    <%= submit_tag "Удалить" %>
+				<% end %> <br /><br />
+			</li>
+			<%end%>
+		</ul>
+	<% end %>
+</div>
+<br />
+<p><%= link_to "Назад", promomain_path_url (:page => 2) %></p>
+<div class="clear"></div>

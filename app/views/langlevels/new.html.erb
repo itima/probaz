@@ -1,0 +1,15 @@
+<h1>Уровень владения ин. яз.</h1>
+
+<% form_for(@langlevel) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label "Название" %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Сохранить' %>
+  </p>
+<% end %>
+
+<%= link_to 'Назад', langlevels_path %>

@@ -1,0 +1,2 @@
+module HaircolorsHelper
+end

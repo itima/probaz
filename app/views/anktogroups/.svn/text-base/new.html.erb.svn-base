@@ -1,0 +1,39 @@
+<h5>Укажите специализацию</h5> <br />
+
+<div id="formGarden"> 
+	<% form_for(@anktogroup) do |f| %>
+
+	<div class="instructions">
+		<%= f.error_messages %>
+	</div> 
+	
+	<fieldset id="spec_fields" class="repeat"> 
+		<legend>Специализация</legend> 
+		<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Выберите из списка Вашу специализацию, вы можете добавить несколько специализаций, нажимая кнопку "Указать" в разделе Анкета</div></div>
+			<label for="anktogroup[ankgroup_id]" class="preField">Специализация</label>
+			<select name="anktogroup[ankgroup_id]">
+	          <% @ag.each do |ag| %>
+	              <option value="<%= ag.id %>"
+	                      <%= ' selected' if (ag.id == @anktogroup.ankgroup_id) %>>
+	                <%= ag.name %>
+	              </option>
+	          <% end %>
+	        </select>
+			<span class="reqMark">*</span><br />
+		</span> <br /><br /><br />
+	   	<span class="oneField">
+			<div class="field-hint-inactive" id="<%= "#{:fname}_H" %>"><div>Отметьте галочкой, если это Ваша основная специализация</div></div>
+			<label for="<%= :fname %>" class="preField">Основная?</label>
+			<%= f.check_box :main %> Да 
+		</span>
+	  <br />
+		<%= f.hidden_field :promoank_id %>
+	  <div class="actions">
+	  	<%= f.submit "Указать",  :class=>"primaryAction" %>
+	  </div> 
+	 </fieldset>
+ 	<% end %>
+</div>
+
+<%= link_to "Назад", promomain_path_url (:page => 1) %>

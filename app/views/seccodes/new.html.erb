@@ -1,0 +1,19 @@
+<h1>Защитный код</h1>
+
+<% form_for(@seccode) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label "Текстовое описание" %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label "Значение" %><br />
+    <%= f.text_field :value %>
+  </p>
+  <p>
+    <%= f.submit 'Сохранить' %>
+  </p>
+<% end %>
+
+<%= link_to 'Назад', seccodes_path %>

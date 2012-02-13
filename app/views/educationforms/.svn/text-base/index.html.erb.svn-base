@@ -1,0 +1,20 @@
+<h1>Формы обучения</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+  </tr>
+
+<% @educationforms.each do |educationform| %>
+  <tr>
+    <td><%= link_to educationform.name, edit_educationform_path(educationform) %></td>
+    <td><%= link_to 'Удалить', educationform, :confirm => 'Вы уверенны?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новая форма', new_educationform_path %>
+<br />
+<%= link_to "назад",adminmain_path_url(:page => 4)  %>

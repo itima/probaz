@@ -1,0 +1,41 @@
+<div class="col1">
+	<h3>Вход для Cоискателей</h3>
+
+<div class="instructions">
+	Для входа в систему введите Ваш e-mail и пароль, затем нажмите Войти.	
+</div> 
+
+<%= render :partial => "main/flash", :object => flash %>
+
+<% form_tag do %>
+
+<fieldset id="login" class="repeat"> 
+	<legend>Вход</legend> 
+	
+    <span class="oneField">
+		<div class="field-hint-inactive" id="<%= :login %>H">
+			<div>Введите Ваш e-mail.</div>
+		</div>
+		<label for="<%= :login %>" class="preField">E-mail</label>
+    	<%= text_field_tag :login,params[:login] %>
+		<span class="reqMark">*</span><br /><br /><br />
+	</span>
+
+    <span class="oneField">
+		<div class="field-hint-inactive" id="<%= :pass %>H">
+			<div>Введите Ваш пароль.</div>
+		</div>
+		<label for="<%= :pass %>" class="preField">Пароль</label>
+    	 <%= password_field_tag :pass,params[:pass] %>
+		<span class="reqMark">*</span><br /><br /><br />
+	</span>            
+
+</fieldset>
+
+<div class="actions">
+	<%= submit_tag "Войти", :class => "primaryAction"%>
+</div> 
+          
+<% end %>
+    
+<%= link_to "Назад",main_path_url %>

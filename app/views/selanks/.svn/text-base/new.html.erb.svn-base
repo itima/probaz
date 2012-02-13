@@ -1,0 +1,27 @@
+<h1>New selank</h1>
+
+<% form_for(@selank) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fio %><br />
+    <%= f.text_field :fio %>
+  </p>
+  <p>
+    <%= f.label :contact %><br />
+    <%= f.text_area :contact %>
+  </p>
+  <p>
+    <%= f.label :selection %><br />
+    <%= f.text_field :selection %>
+  </p>
+  <p>
+    <%= f.label :promoank %><br />
+    <%= f.text_field :promoank %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', selanks_path %>

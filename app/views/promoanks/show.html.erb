@@ -1,0 +1,44 @@
+<%= render :partial => "promoanks/ank", :object => @ank, :locals => {:selank =>nil, :firm => true} %>
+
+
+<div class="anket_similar">
+  <% if @anks!=nil and @anks.size > 0  %>
+    <h3>Похожие анкеты</h3>
+    <table class="ankets" id="contacts" cellspacing="0" summary="Список похожих анкет">
+      <tr>
+        <th scope="col" class="nobg">ФИО</th>
+        <th scope="col">Последний вход</th>
+      </tr>
+
+      <% @anks.each do |promoank| %>
+        <tr>
+          <th scope="row" class="spec"><%=link_to promoank.fio,promoank_path(:id => promoank.id,:rejectid => @ank.id) %></th>
+          <td><%= promoank.lastlogin %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% end %>
+  <br/>
+</div>
+
+<div>
+  <h3>Управление анкетой</h3>
+  <%if (@ank.moderate==false) and (@ank.reject==false)%>
+    <%= link_to "Подтвердить",moderateank_path_url(:id => @ank.id,:ok =>'1') %>
+    <br/>
+    <%  form_tag(moderateank_path_url) do%>
+      <%= hidden_field_tag :id,@ank.id %>
+      <%= hidden_field_tag :ok,"0" %>
+      <%= text_field_tag "rejectmsg" %>
+      <%= submit_tag "Отклонить" %>
+    <%end%>
+    <br/>
+    <%= link_to 'Удалить', @ank, :confirm => 'Вы уверенны?', :method => :delete %>
+    <br/>
+  <%end%>
+  <%if @rejid == nil %>
+    <%= link_to "Назад",adminmain_path_url %>
+  <%else%>
+    <%= link_to "Назад",Promoank.find(@rejid.to_i) %>
+  <%  end %>
+</div>

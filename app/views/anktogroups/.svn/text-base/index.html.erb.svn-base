@@ -1,0 +1,24 @@
+<h1>Listing anktogroups</h1>
+
+<table>
+  <tr>
+    <th>Promoank</th>
+    <th>Ankgroup</th>
+    <th>Main</th>
+  </tr>
+
+<% @anktogroups.each do |anktogroup| %>
+  <tr>
+    <td><%=h anktogroup.promoank %></td>
+    <td><%=h anktogroup.ankgroup %></td>
+    <td><%=h anktogroup.main %></td>
+    <td><%= link_to 'Show', anktogroup %></td>
+    <td><%= link_to 'Edit', edit_anktogroup_path(anktogroup) %></td>
+    <td><%= link_to 'Destroy', anktogroup, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New anktogroup', new_anktogroup_path %>

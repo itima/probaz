@@ -1,0 +1,312 @@
+<h5>Фильтр отбора</h5>
+
+<div id="formGarden"> 
+<% form_tag do %>
+
+	<div class="instructions">
+		<p>Вы находитесь в разделе установки фильтра.</p>
+		<p>Для установки параметров отметьте галочкой слева и выберите значения, которые Вы хотите фильтровать</p>
+	</div> 
+	  
+<fieldset id="filter_fields" class="repeat"> 
+		<legend>Фильтр</legend> 
+		
+		<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Выберите специализацию из списка </div></div>
+			
+			<%= check_box_tag :cb_spec %> <label for="<%= :cb_spec %>" class="preField">Специализация</label>
+			<select name="spec">
+	           <% @spec.each do |spec| %>
+              <option value="<%= spec.id %>"<%= ' selected' if spec.id == 1 %>>
+                <%= spec.name %>
+              </option>
+          		<% end %>
+	        </select>
+		</span> <br /><br />
+		
+		<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Выберите Пол </div></div>
+			
+			<%= check_box_tag :cb_sex %> <label for="<%= :cb_sex %>" class="preField">Пол</label>
+			<%= radio_button_tag :sex, 1,'checked' %> Мужской <%= radio_button_tag :sex, 0 %> Женский
+		</span> <br /><br />
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите период даты рождения потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_bd %> <label for="<%= :cb_bd %>" class="preField">Дата рождения</label>
+			<select name="sel_bd">
+		       <option value="=">Равно</option>
+    		   <option value=">" selected>Старше</option>
+   		   	   <option value="<">Младше</option>
+   		   </select> :
+   <%=  date_select "post", "bd",:start_year => 1940 %> 
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите желаемый график работ для потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_wg %> <label for="<%= :cb_wg %>" class="preField">График работ</label>
+   			<select name="sel_wg">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			<select name="wg">
+	          <% @wg.each do |wg| %>
+	              <option value="<%= wg.id %>"<%= ' selected' if wg.id == 1 %>>
+	                <%= wg.name %>
+	              </option>
+	          <% end %>
+	        </select>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите желаемый уровень занятости для потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_we %> <label for="<%= :cb_we %>" class="preField">Занятость</label>
+   			<select name="sel_we">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			<select name="we">
+		          <% @we.each do |we| %>
+		              <option value="<%= we.id %>"<%= ' selected' if we.id == 1 %>>
+		                <%= we.name %>
+		              </option>
+		          <% end %>
+	        </select>
+	</span> <br /><br />
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Если Вам требуются сотрудники с медицинской книжкой, то отметьте данный пункт</div></div>
+			
+			<%= check_box_tag :cb_medbook %> <label for="<%= :cb_medbook %>" class="preField">Медицинская Книжка?</label>
+   			<%= radio_button_tag :medbook, 1,'checked' %> Да <%= radio_button_tag :medbook, 0 %> Нет
+	</span> <br /><br />
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите желаемый уровень зарплаты для потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_cost %> <label for="<%= :cb_cost %>" class="preField">Ставка</label>
+   			<select name="sel_cost">
+			       <option value="="  selected >Равно</option>
+			       <option value=">">Больше</option>
+			       <option value="<">Меньше</option>
+			</select> :
+			<%= text_field_tag "cost" %>
+	</span> <br /><br />	
+
+<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите семейное положнение потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_mer %> <label for="<%= :cb_mer %>" class="preField">Женат\Замужем?</label>
+   			<%= radio_button_tag :mer, 1,'checked' %> Да <%= radio_button_tag :mer, 0 %> Нет
+	</span> <br /><br />
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите город прописки потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_pcity %> <label for="<%= :cb_pcity %>" class="preField">Прописка</label>
+   			<select name="sel_pcity">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			  <select name="pcity">
+			          <% @pcity.each do |pcity| %>
+			              <option value="<%= pcity.id %>"<%= ' selected' if pcity.id == 1 %>>
+			                <%= pcity.name %>
+			              </option>
+			         <% end %>
+			        </select>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Если Вам требуются только Граждане РФ отметьте галочкой</div></div>
+			
+			<%= check_box_tag :cb_sitship %> <label for="<%= :cb_sitship %>" class="preField">Гражданство РФ?</label>
+   			<%= radio_button_tag :sitship, 1,'checked' %> Да <%= radio_button_tag :sitship, 0 %> Нет
+	</span> <br /><br />
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите город фактического проживания потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_fcity %> <label for="<%= :cb_fcity %>" class="preField">Город проживания</label>
+   			<select name="sel_fcity">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			  <select name="fcity">
+          <% @fcity.each do |fcity| %>
+              <option value="<%= fcity.id %>"<%= ' selected' if fcity.id == 1 %>>
+                <%= fcity.name %>
+              </option>
+          <% end %>
+        </select>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите рост потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_gw %> <label for="<%= :cb_gw %>" class="preField">Рост</label>
+			 <select name="sel_gw">
+       <option value="=">Равно</option>
+       <option value=">" selected>Больше</option>
+       <option value="<">Меньше</option>
+      </select> :
+   <%= text_field_tag "gw" %>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите вес потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_w %> <label for="<%= :cb_w %>" class="preField">Вес</label>
+			 <select name="sel_w">
+       <option value="=">Равно</option>
+       <option value=">" selected>Больше</option>
+       <option value="<">Меньше</option>
+      </select> :
+   	<%= text_field_tag "w" %>
+	</span> <br /><br />			
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите размер одежды потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_cs %> <label for="<%= :cb_cs %>" class="preField">Размер одежды</label>
+   			<%= text_field_tag "cs" %>
+	</span> <br /><br />
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите размер обуви потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_bs %> <label for="<%= :cb_bs %>" class="preField">Размер обуви</label>
+   			<%= text_field_tag "bs" %>
+	</span> <br /><br />
+
+
+
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите длину волос потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_hl %> <label for="<%= :cb_hl %>" class="preField">Длина волос</label>
+			 <select name="sel_hl">
+      		 	<option value="="  selected >Равно</option>
+       			<option value="!=">Не равно</option>
+		      </select> :
+   			<select name="hl">
+	          <% @hl.each do |hl| %>
+	              <option value="<%= hl.id %>"<%= ' selected' if hl.id == 1 %>>
+	                <%= hl.name %>
+	              </option>
+	          <% end %>
+	        </select>
+	</span> <br /><br />	
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите цвет волос потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_hc %> <label for="<%= :cb_cb_hchl %>" class="preField">Цвет волос</label>
+			 <select name="sel_hc">
+      		 	<option value="="  selected >Равно</option>
+       			<option value="!=">Не равно</option>
+		      </select> :
+   			<select name="hc">
+	          <% @hc.each do |hc| %>
+	              <option value="<%= hc.id %>"<%= ' selected' if hc.id == 1 %>>
+	                <%= hc.name %>
+	              </option>
+	          <% end %>
+        	</select>
+	</span> <br /><br />
+
+	
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите уровень требуемого образования потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_ed %> <label for="<%= :cb_ed %>" class="preField">Образование</label>
+   			<select name="sel_ed">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			  <select name="ed">
+		          <% @ed.each do |ed| %>
+		              <option value="<%= ed.id %>"<%= ' selected' if ed.id == 1 %>>
+		                <%= ed.name %>
+		              </option>
+		          <% end %>
+		        </select>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите форму обучения потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_edform %> <label for="<%= :cb_edform %>" class="preField">Форма обучения</label>
+   			<select name="sel_edform">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			 <select name="edform">
+		          <% @edform.each do |edform| %>
+		              <option value="<%= edform.id %>"<%= ' selected' if edform.id == 1 %>>
+		                <%= edform.name %>
+		              </option>
+		          <% end %>
+		        </select>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Если Вам требуются сотрудники с личным авто, то отметьте данный пункт</div></div>
+			
+			<%= check_box_tag :cb_car %> <label for="<%= :cb_car %>" class="preField">Наличие Авто?</label>
+   			<%= radio_button_tag :car, 1,'checked' %> Да <%= radio_button_tag :car, 0 %> Нет
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Если Вам требуются сотрудники с водительским удостоверением, то отметьте данный пункт</div></div>
+			
+			<%= check_box_tag :cb_dlic %> <label for="<%= :cb_dlic %>" class="preField">Водительские Права?</label>
+   			<%= radio_button_tag :dlic, 1,'checked' %> Да <%= radio_button_tag :dlic, 0 %> Нет
+	</span> <br /><br />	
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите требуемый уровень владения компьютером потенциального сотрудника </div></div>
+			
+			<%= check_box_tag :cb_pcl %> <label for="<%= :cb_pcl %>" class="preField">Комьютер</label>
+   			<select name="sel_pcl">
+			       <option value="="  selected >Равно</option>
+			       <option value="!=">Не равно</option>
+			</select> :
+			 <select name="pcl">
+		          <% @pcl.each do |pcl| %>
+		              <option value="<%= pcl.id %>"<%= ' selected' if pcl.id == 1 %>>
+		                <%= pcl.name %>
+		              </option>
+		          <% end %>
+      		</select>
+	</span> <br /><br />
+	
+	<span class="oneField">
+			<div class="field-hint-inactive" id="wf_PhoneNumber-vshons-H"><div>Укажите иностранный язык, которым должен обладать потенциальный сотрудник </div></div>
+			
+			<%= check_box_tag :cb_lang %> <label for="<%= :cb_lang %>" class="preField">Иностранный язык</label>
+   			<select name="lang">
+	          <% @lang.each do |lang| %>
+	              <option value="<%= lang.id %>"<%= ' selected' if lang.id == 1 %>>
+	                <%= lang.name %>
+	              </option>
+	          <% end %>
+	        </select>
+	</span> <br /><br />	
+
+  <%=  hidden_field_tag :firm_id,@firm_id %>
+	
+	  <div class="actions">
+	  	<%= submit_tag "Выбрать",  :class=>"primaryAction" %>
+	  </div> 
+	 </fieldset>
+  
+<%end%>
+
+</div>
+
+<%= link_to "Назад",firmmain_path_url(:page => '2') %>

@@ -1,0 +1,8 @@
+<p>
+  <b>Name:</b>
+  <%=h @workgraphic.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_workgraphic_path(@workgraphic) %> |
+<%= link_to 'Back', workgraphics_path %>

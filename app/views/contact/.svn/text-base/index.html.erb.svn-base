@@ -1,0 +1,30 @@
+<div class="col1" > 
+<h3>Обратная связь</h3> <br />
+<p>Отправьте нам сообщение и Мы свяжемся с Вами в ближайшее время</p>
+<br />
+<% form_for(:contact, :url => contact_path) do |form| %>
+  <p>
+    <%= form.label "Тема" %><br />
+    <%= form.text_field :subject %>
+  </p>
+
+  <p>
+    <%= form.label "Ваше имя" %><br />
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label "Электронная почта" %><br />
+    <%= form.text_field :email %>
+  </p>
+
+  <p>
+    <%= form.label "Сообщение" %><br />
+    <%= form.text_area :body %>
+  </p>
+
+  <p>
+    <%= form.submit "Отправить" %>
+  </p>
+<% end %>
+</div>

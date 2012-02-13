@@ -1,0 +1,20 @@
+<h1>Уровни владения компьютером</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+  </tr>
+
+<% @pclevels.each do |pclevel| %>
+  <tr>
+    <td><%= link_to pclevel.name, edit_pclevel_path(pclevel) %></td>
+    <td><%= link_to 'Удалить', pclevel, :confirm => 'Вы уверенны?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новый уровень', new_pclevel_path %>
+<br />
+<%= link_to "назад",adminmain_path_url(:page => 4)  %>

@@ -1,0 +1,391 @@
+<%if (@ank.checkemail == false)%>
+  <b style="color: red">Если вы не получили собщение об активации по электронной почте ,</b><br/>
+  <b style="color: red">Попробуйте повторить его нажав на ссылку! </b><%= link_to "Отправить", sendtoank_path_url(:id => @ank.id) %>,<br/>
+<%end%>
+<br />
+
+<%if @page == '0' %>
+  <h5>Личный кабинет</h5>
+  <br />
+
+  <div>
+    <p>Приветствуем Вас на сайте Probaz.ru.</p>
+    <br />
+
+    <p>У нас Вы можете разместить информацию о себе и открыть к ней доступ потенциальным работодателям.</p>
+    <br />
+
+    <p>Если Вы еще не заполнили свою анкету, то Вам следует как можно скорее это сделать. И тогда, после проверки анкеты модератором, Вы будете включены в поиск всем работодателям и агентствам, которые зарегистрированы у нас на портале.</p>
+    <br />
+
+    <p>В любой момент Вы можете выклюить себя из поиска нажав на кнопку "Выключить" анкету.</p>
+    <br />
+
+
+  <h5>3 шага до новой работы:</h5>
+	</div>
+    <div class="steps" id="process">
+	  <ul>
+<!-- 	шаг 1      -->
+	      <%if (@ank.checkemail == false)%>
+	      <li class="step step-1">
+	      <p><strong>Шаг 1</strong><br />
+	        Перейдите по сслыке отправленной Вам на электронную почту! Если вы не получили письмо,  <%= link_to "запросите", sendtoank_path_url(:id => @ank.id) %> повторную отправку.
+	      <%else%>
+	      <li class="step step-1 step_over">
+	      <p><strong>Шаг 1</strong><br />
+	         Подтверждение электронной почты выполнено. <br/>
+	      <%end%>
+	      </p>
+	    </li>
+<!-- 	шаг 2      -->	  
+	      <%if (@ank.checkemail == true) and (@ank.fname== nil)%>
+	         <li class="step step-2">
+	      <p><strong>Шаг 2</strong><br /><%= link_to 'Заполните', edit_promoank_path(@ank) %> Вашу анкету для участия в системе.
+	      <%else%>
+	      <%if (@ank.checkemail == false)%>
+	          <li class="step step-2">
+	      <p><strong>Шаг 2</strong><br />Заполнение анкеты для участия в системе.	      <%else%>
+	         <li class="step step-2 step_over">
+	      <p><strong>Шаг 2</strong><br />Вы заполнили свою анкету.	      <%end%>
+	      <%end%></p>
+	    </li>
+<!-- 	шаг 3      -->	    
+	      <%if (@ank.checkemail == true) and (@ank.fname!= nil) and (@ank.moderate == true) and (@ank.active == false)%>
+	      <li class="step step-3">
+	      <p><strong>Шаг 3</strong><br />
+	         Анкета проверена, Вам нужно  <%= link_to "включить", activeank_path_url (:id => @ank.id) %> Вашу анкету для показа работодателям.
+	      <%else%>
+	      <%if (@ank.checkemail == true) and (@ank.fname!= nil) and (@ank.moderate == false) %>
+	        <%if (@ank.reject == false) %>
+	        	      <li class="step step-3">
+	      <p><strong>Шаг 3</strong><br />
+	        Ваша анкета направлена модератору на проверку.
+	        <%else%>
+	        	      <li class="step step-3">
+	      <p><strong>Шаг 3</strong><br />Анкета отклонена:  <%= @ank.rejectmsg %>. <%= link_to 'Отредактируйте анкету', edit_promoank_path(@ank) %>.
+	        <%end%>
+	      <%else%>
+	      <%if (@ank.checkemail == true) and (@ank.fname!= nil) and (@ank.moderate == true) and (@ank.active == true)%>
+	        	      <li class="step step-3 step_over">
+	      <p><strong>Шаг 3</strong><br />Ваша анкета включена для показа работодателям. </b><br/>
+	      <%else%>
+	      <li class="step step-3">
+	      <p><strong>Шаг 3</strong><br />После проверки модератором, Вам необходимо активировать анкету и тем самым включить ее для поиска работодателями! </p>
+	        <%end%>
+      <%end%>
+      <%end%></li>
+
+	  </ul>
+	</div>
+	
+	<br />
+  <div class="clear">
+  <br />
+  <b>Статус : </b>
+  <% if @ank.moderate == false %>
+    <img src="/images/ico16_deact.gif" />
+    <% if @ank.reject == false %>
+      <b style="color: red">Не проверенна модератором (В поиске не участвует)!</b>
+    <%else%>
+      <b style="color: red">Отклонена модератором (В поиске не участвует)!</b><br/>
+      <b>Сообщение модератора : </b><b style="color: red"><%= @ank.rejectmsg %> </b>
+      <br/>
+    <%end%>
+  <%else%>
+    <% if @ank.active == true %>Активна,
+      <img src="/images/ico16_deact.gif" /><%= link_to "Выключить", activeank_path_url (:id => @ank.id) %>
+    <%else%>Неактивна (в поиске не участвует),
+      <img src="/images/ico16_ok.gif" /><%= link_to "Включить", activeank_path_url (:id => @ank.id) %>
+    <%end%>
+  <%end%>
+
+  <br />
+  <b>Количество отборов в которых я учавствую : </b><%= @selanks.size %> , отбор.<br />
+  <b>Моя анкета рассмотрена работодателями: </b><%= @payanks.size %>, раз.<br />
+</div>
+    
+    
+<%end%>
+
+<%if @page == '1' %>
+  <h5>Ваша анкета</h5>
+  <br />
+  <div>
+    <p>Вы находитесь в разделе Анкета, заполните анкету, нажав на ссылке "Редактировать".</p> <br />
+
+    <p>Убедитесь, что Вы заполнили данные о специализации и иностранных языках, которыми Вы владеете.</p> <br />
+
+    <p style="color: red"><%if @ank.checkemail == true %><%= link_to 'Редактировать', edit_promoank_path(@ank) %> <%else%><%= "Редактирование недоступно! (необходимо активировать анкету)!" %><br/>Вам  необходимо пройти по ссылке, которая отправленна на введеный при регистрации email!<%end%></p>
+    <br />
+
+  </div>
+
+  <div id="anket">
+    <!-- div class="anket_foto">
+    <% if @files!=nil %>
+                                    <a href="../<%= @files.first.split(/&/)[1].to_s %>" rel="lightbox[foto]" >
+                                            <img  class="list-image" width="100" src="../<%= @files.first.split(/&/)[1].to_s %>" />
+                                    </a>
+    <% end %>
+          </div> -->
+    <div class="anket_header">
+      <h6><%= @ank.fio %></h6> <br />
+      <dl>
+        <dt>Дата рождения</dt>
+        <dd><%= @ank.birthday %></dd>
+        <dt>Электронная почта</dt>
+        <dd><%= @ank.email %></dd>
+        <% if @ank.factphone?%>
+          <dt>Домашний телефон</dt>
+          <dd><%= @ank.factphone %></dd>
+        <% end %>
+        <% if @ank.mobilephone?%>
+          <dt>Мобильный телефон</dt>
+          <dd><%= @ank.mobilephone %> </dd>
+        <% end %>
+        <% if @ank.passcity_id?%>
+          <dt>Город</dt>
+          <dd> <%= City.find(@ank.passcity_id).name %> </dd>
+        <%end%>
+        <% if @ank.sex?%>
+          <dt>Пол</dt>
+          <dd> <%if @ank.sex == true %>Мужской
+            <%else%>Женский
+          <%end%></dd>
+        <%end%>
+      </dl>
+    </div>
+    <br />
+
+    <div class="anket_data">
+      <h6>Специализация</h6><%= link_to 'Указать', new_anktogroup_path(:ank_id =>@ank.id) %>
+      <dl>
+        <% @anktogroups.each do |anktogroup| %>
+          <dt><%=link_to anktogroup.ankgroup.name,edit_anktogroup_path(anktogroup) %> </dt>
+          <dd><%if anktogroup.main==true %>Основная<% else %>Дополнительная<%end%>&nbsp;
+          <%= link_to 'Убрать', anktogroup, :confirm => 'Вы уверенны?', :method => :delete %></dd>
+        <% end %>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Личные данные</h6> <br />
+      <dl>
+        <% if @ank.growth?%>
+          <dt>Рост</dt>
+          <dd><%= @ank.growth %> см.</dd>
+        <% end %>
+        <% if @ank.weight?%>
+          <dt>Вес</dt>
+          <dd><%= @ank.weight %> кг.</dd>
+        <% end %>
+        <% if @ank.clothessize?%>
+          <dt>Размер одежды</dt>
+          <dd><%= @ank.clothessize %></dd>
+        <% end %>
+        <% if @ank.bootssize?%>
+          <dt>Размер обуви</dt>
+          <dd><%= @ank.bootssize %></dd>
+        <% end %>
+        <% if @ank.haircolor_id?%>
+          <dt>Цвет Волос</dt>
+          <dd><%= @ank.haircolor.name %></dd>
+        <% end %>
+        <% if @ank.hairlength_id?%>
+          <dt>Длина Волос</dt>
+          <dd><%= @ank.hairlength.name %></dd>
+        <% end %>
+        <% if @ank.faces? %>
+          <dt>Особенности внешности</dt>
+          <dd><%= @ank.faces %></dd>
+        <% end %>
+        <% if @ank.merried?%>
+          <dt>Семейное положение</dt>
+          <dd>
+            <%if @ank.merried==true %>
+              <% if @ank.sex=true %>
+                                Женат
+              <%else%>
+                                За мужем
+              <% end %>
+            <% else %>
+              <% if @ank.sex=true %>
+                                Холост
+              <%else%>
+                                Не замужем
+              <% end %>
+            <%end%></dd>
+          <%end%>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Образование</h6><br />
+      <dl>
+        <% if @ank.education_id? %>
+          <dt>Образование</dt>
+          <dd><%= @ank.education.name %></dd>
+        <% end %>
+        <% if @ank.educationform_id? %>
+          <dt>Форма обучения</dt>
+          <dd><%= @ank.educationform.name %></dd>
+        <% end %>
+        <% if @ank.institute? %>
+          <dt>Уч. заведение</dt>
+          <dd> <%= @ank.institute %></dd>
+        <% end %>
+        <% if @ank.educationspec? %>
+          <dt>Специальность</dt>
+          <dd><%= @ank.educationspec %></dd>
+        <% end %>
+        <% if @ank.educationstart? %>
+          <dt>Дата поступления</dt>
+          <dd><%= @ank.educationstart %></dd>
+        <% end %>
+        <% if @ank.educationstop? %>
+          <dt>Дата окончания</dt>
+          <dd><%= @ank.educationstop %> </dd>
+        <% end %>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Иностранные языки </h6> <%= link_to 'Указать', new_anktolang_path(:ank_id =>@ank.id) %>
+      <dl>
+        <% @anktolangs.each do |anktolang| %>
+          <dt><%= link_to  anktolang.language.name, edit_anktolang_path(anktolang) %></dt>
+          <dd><%=h anktolang.langlevel.name %>&nbsp;
+          <%= link_to 'Убрать', anktolang, :confirm => 'Вы уверенны?', :method => :delete %></dd>
+        <% end %>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Паспортные данные</h6><br />
+      <dl>
+        <% if @ank.passseries? %>
+          <dt>Серия</dt>
+          <dd><%= @ank.passseries %></dd>
+        <% end %>
+        <% if @ank.passnumber? %>
+          <dt>Номер</dt>
+          <dd><%= @ank.passnumber %></dd>
+        <% end %>
+        <% if @ank.passdate? %>
+          <dt>Дата выдачи</dt>
+          <dd><%= @ank.passdate %></dd>
+        <% end %>
+        <% if @ank.passwho? %>
+          <dt>Кем выдан</dt>
+          <dd><%= @ank.passwho %></dd>
+        <% end %>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Адрес прописки</h6><br />
+      <dl>
+        <% if @ank.passcity_id? %>
+          <dt>Город</dt>
+          <dd><%= City.find(@ank.passcity_id).name %></dd>
+        <% end %>
+        <% if @ank.passindex? %>
+          <dt>Индекс</dt>
+          <dd><%= @ank.passindex %></dd>
+        <% end %>
+        <% if @ank.passstreet? %>
+          <dt>Улица</dt>
+          <dd><%= @ank.passstreet %></dd>
+        <% end %>
+        <% if @ank.passhouse? %>
+          <dt>Дом</dt>
+          <dd><%= @ank.passhouse %></dd>
+        <% end %>
+        <% if @ank.citizenship? %>
+          <dt>Гражданство РФ</dt>
+          <dd><%if @ank.citizenship==true %> Да <%else%> Нет <%end%></dd>
+        <% end %>
+      </dl>
+    </div>
+    <div class="anket_data">
+      <h6>Фактический адрес</h6><br />
+      <dl>
+        <% if @ank.factcity_id? %>
+          <dt>Город</dt>
+          <dd><%= City.find(@ank.factcity_id).name %></dd>
+        <% end %>
+        <% if @ank.factindex? %>
+          <dt>Индекс</dt>
+          <dd><%= @ank.factindex %></dd>
+        <% end %>
+        <% if @ank.factmetro_id? %>
+          <dt>Метро</dt>
+          <dd><%= Metro.find(@ank.factmetro_id).name %></dd>
+        <% end %>
+        <% if @ank.factstreet? %>
+          <dt>Улица</dt>
+          <dd><%= @ank.factstreet %></dd>
+        <% end %>
+        <% if @ank.facthouse? %>
+          <dt>Дом</dt>
+          <dd><%= @ank.facthouse %></dd>
+        <% end %>
+      </dl>
+    </div>
+    <div class="anket_data">
+      <h6>Транспорт</h6><br />
+      <dl>
+        <dt>Вод.уд.</dt>
+        <dd><%if @ank.drivercard==true %> Да <%else%> Нет <%end%></dd>
+        <dt>Автомобиль</dt>
+        <dd><%if @ank.hascar==true %> Да <%else%> Нет <%end%></dd>
+        <dt>Марка</dt>
+        <dd><%= @ank.carmark %></dd>
+      </dl>
+    </div>
+
+    <div class="anket_data">
+      <h6>Медкнижка</h6><br />
+      <dl>
+        <dt>Наличие</dt>
+        <dd><%if @ank.hasmedbook==true %> Да <%else%> Нет <%end%></dd>
+        <dt>Номер</dt>
+        <dd><%= @ank.medbooknumber %></dd>
+        <dt>Дата окончание</dt>
+        <dd><%= @ank.medbookstop %></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="clear"></div>
+<%end%>
+
+
+
+<%if @page=='2'%>
+  <h5>Фотогалерея</h5>
+  <div>
+    <p>В этом разделе Вы можете загрузить свои фотографии для портфолио, доступному работодателям</p>
+    <br />
+
+    <p><%= link_to 'Управление Фотографиями', ankfotos_path_url(:id=>@ank.id) %></p> <br />
+    <div>
+
+      <div class="anket_fotos">
+        <h6>Портфолио</h6><br />
+        <% if @files!=nil %>
+          <ul>
+            <% @files.each do |file| %>
+              <li>
+                <a href="../<%= file.split(/&/)[1].to_s %>" rel="lightbox[foto]" ><%= file.split(/&/)[0].to_s %> <br />
+                  <img  class="list-image" width="200" src="../<%= file.split(/&/)[1].to_s %>" />
+                </a> <br /><br />
+              </li>
+            <%end%>
+          </ul>
+        <% end %>
+
+      </div>
+      </div>      </div>
+
+    <%end%>

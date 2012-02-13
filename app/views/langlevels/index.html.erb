@@ -1,0 +1,20 @@
+<h1>Уровни владения ин. яз.</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+  </tr>
+
+<% @langlevels.each do |langlevel| %>
+  <tr>
+    <td><%= link_to langlevel.name, edit_langlevel_path(langlevel) %></td>
+    <td><%= link_to 'Удалить', langlevel, :confirm => 'Вы уверенны?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новый уровень', new_langlevel_path %>
+<br />
+<%= link_to "назад",adminmain_path_url(:page => 4)  %>

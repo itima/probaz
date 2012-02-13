@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  promoank: 
+  ankgroup: 
+  main: false
+
+two:
+  promoank: 
+  ankgroup: 
+  main: false

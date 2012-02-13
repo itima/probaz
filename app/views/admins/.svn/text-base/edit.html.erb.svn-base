@@ -1,0 +1,20 @@
+<h1>Editing admin</h1>
+
+<% form_for(@admin) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :kod %><br />
+    <%= f.text_field :kod %>
+  </p>
+  <p>
+    <%= f.label :pass %><br />
+    <%= f.text_field :pass %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @admin %> |
+<%= link_to 'Back', admins_path %>

@@ -1,0 +1,20 @@
+<h1>Длина волос</h1>
+
+<table>
+  <tr>
+    <th>Название</th>
+  </tr>
+
+<% @hairlengths.each do |hairlength| %>
+  <tr>
+    <td><%= link_to hairlength.name, edit_hairlength_path(hairlength) %></td>
+    <td><%= link_to 'Удалить', hairlength, :confirm => 'Вы уверенны?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новая длина', new_hairlength_path %>
+<br />
+<%= link_to "назад",adminmain_path_url(:page => 4)  %>

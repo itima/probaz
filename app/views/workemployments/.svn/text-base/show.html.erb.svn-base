@@ -1,0 +1,8 @@
+<p>
+  <b>Name:</b>
+  <%=h @workemployment.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_workemployment_path(@workemployment) %> |
+<%= link_to 'Back', workemployments_path %>

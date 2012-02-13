@@ -1,0 +1,8 @@
+<p>
+  <b>Name:</b>
+  <%=h @langlevel.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_langlevel_path(@langlevel) %> |
+<%= link_to 'Back', langlevels_path %>

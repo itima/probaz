@@ -1,0 +1,8 @@
+<p>
+  <b>Name:</b>
+  <%=h @educationform.name %>
+</p>
+
+
+<%= link_to 'Edit', edit_educationform_path(@educationform) %> |
+<%= link_to 'Back', educationforms_path %>
